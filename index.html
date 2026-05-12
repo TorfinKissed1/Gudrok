@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <title>GUDROK — тротуарная плитка с завода</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/vendor/keen-slider.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/vendor/keen-slider.min.js" defer></script>
+    <script src="js/main.js" defer></script>
+</head>
+
+<body>
+    <header class="header" data-header>
+        <div class="container header__container">
+            <div class="header__inner">
+                <div class="header__left">
+                    <a class="header__logo" href="#" aria-label="GUDROK">
+                        <img src="img/header/logo.svg" alt="GUDROK">
+                    </a>
+
+                    <nav class="header__nav" aria-label="Основная навигация">
+                        <ul class="header__menu">
+                            <li class="header__menu-item">
+                                <a class="header__menu-link" href="#products">Тротуарная плитка</a>
+                            </li>
+                            <li class="header__menu-item">
+                                <a class="header__menu-link" href="#benefits">Преимущества</a>
+                            </li>
+                            <li class="header__menu-item">
+                                <a class="header__menu-link" href="#warranty">Гарантия</a>
+                            </li>
+                            <li class="header__menu-item">
+                                <a class="header__menu-link" href="#gallery">Галерея</a>
+                            </li>
+                            <li class="header__menu-item">
+                                <a class="header__menu-link" href="#delivery">Доставка</a>
+                            </li>
+                            <li class="header__menu-item">
+                                <a class="header__menu-link" href="#map">Где купить</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="header__right">
+                    <div class="header__contacts">
+                        <div class="header__socials" aria-label="Социальные сети">
+                            <a class="header__social header__social--vk" href="#" aria-label="ВКонтакте"></a>
+                            <a class="header__social header__social--max" href="#" aria-label="MAX"></a>
+                        </div>
+                        <a class="header__phone" href="tel:+74952214040">+7 (495) 221-40-40</a>
+                    </div>
+
+                    <div class="header__actions">
+                        <button class="header__callback" type="button">Обратный звонок</button>
+                        <a class="header__cart" href="#cart" aria-label="Корзина">
+                            <img class="header__cart-icon" src="img/header/cart.png" alt="">
+                            <span class="header__cart-count">1</span>
+                        </a>
+                        <button class="header__burger" type="button" aria-label="Открыть меню"
+                            aria-controls="mobile-menu" aria-expanded="false" data-menu-open>
+                            <img src="img/header/burger.png" alt="">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="header__mobile-menu" id="mobile-menu" aria-hidden="true" data-menu>
+            <div class="container header__mobile-container">
+                <div class="header__mobile-inner">
+                    <div class="header__mobile-top">
+                        <a class="header__logo header__logo--mobile" href="#" aria-label="GUDROK">
+                            <img src="img/header/logo.svg" alt="GUDROK">
+                        </a>
+                        <button class="header__close" type="button" aria-label="Закрыть меню" data-menu-close>
+                            <img src="img/header/close.png" alt="">
+                        </button>
+                    </div>
+
+                    <nav class="header__mobile-nav" aria-label="Мобильная навигация">
+                        <ul class="header__mobile-list">
+                            <li class="header__mobile-item">
+                                <a class="header__mobile-link" href="#products">Тротуарная плитка</a>
+                            </li>
+                            <li class="header__mobile-item">
+                                <a class="header__mobile-link" href="#benefits">Преимущества</a>
+                            </li>
+                            <li class="header__mobile-item">
+                                <a class="header__mobile-link" href="#warranty">Гарантия</a>
+                            </li>
+                            <li class="header__mobile-item">
+                                <a class="header__mobile-link" href="#gallery">Галерея</a>
+                            </li>
+                            <li class="header__mobile-item">
+                                <a class="header__mobile-link" href="#delivery">Доставка</a>
+                            </li>
+                            <li class="header__mobile-item">
+                                <a class="header__mobile-link" href="#map">Где купить</a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <div class="header__mobile-contacts">
+                        <a class="header__mobile-phone" href="tel:+74952214040">+7 (495) 221-40-40</a>
+                        <button class="header__callback header__callback--mobile" type="button">Обратный звонок</button>
+                        <div class="header__mobile-socials" aria-label="Социальные сети">
+                            <a class="header__social header__social--vk" href="#" aria-label="ВКонтакте"></a>
+                            <a class="header__social header__social--max" href="#" aria-label="MAX"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main" id="main">
+        <section class="main__hero hero" aria-label="Тротуарная плитка GUDROK">
+            <div class="hero__slider keen-slider" data-hero-slider>
+                <div class="hero__slide hero__slide--center keen-slider__slide"
+                    style="background-image: url('img/hero/hero-1.png');"></div>
+                <div class="hero__slide hero__slide--left keen-slider__slide"
+                    style="background-image: url('img/hero/hero-1.png');"></div>
+                <div class="hero__slide hero__slide--right keen-slider__slide"
+                    style="background-image: url('img/hero/hero-1.png');"></div>
+                <div class="hero__slide hero__slide--top keen-slider__slide"
+                    style="background-image: url('img/hero/hero-1.png');"></div>
+                <div class="hero__slide hero__slide--bottom keen-slider__slide"
+                    style="background-image: url('img/hero/hero-1.png');"></div>
+                <div class="hero__slide hero__slide--wide keen-slider__slide"
+                    style="background-image: url('img/hero/hero-1.png');"></div>
+            </div>
+            <div class="hero__shade" aria-hidden="true"></div>
+
+            <div class="container hero__container">
+                <div class="hero__body">
+                    <div class="hero__tag">Производим плитку с 2018 года</div>
+                    <div class="hero__heading">
+                        <h1 class="hero__title">
+                            <span class="hero__title-line">Подберём тротуарную плитку</span>
+                            <span class="hero__title-line">для благоустройства вашего участка</span>
+                        </h1>
+                        <div class="hero__subtitle">
+                            <p>заводское производство, <span class="hero__subtitle-line">помощь в расчете и гарантия 5 лет</span></p>
+                        </div>
+                    </div>
+                    <a class="hero__button" href="#products">Смотреть плитку в наличии</a>
+                </div>
+
+                <div class="hero__controls" aria-label="Управление слайдером">
+                    <div class="hero__arrows">
+                        <button class="hero__arrow hero__arrow--prev" type="button" data-hero-prev
+                            aria-label="Предыдущий слайд">
+                            <img src="img/icons/arrow-left.svg" alt="">
+                        </button>
+                        <button class="hero__arrow hero__arrow--next" type="button" data-hero-next
+                            aria-label="Следующий слайд">
+                            <img src="img/icons/arrow-right.svg" alt="">
+                        </button>
+                    </div>
+
+                    <div class="hero__pagination" data-hero-pagination>
+                        <button class="hero__pagination-button" type="button" data-hero-bullet="0"
+                            aria-label="Показать слайд 1"></button>
+                        <button class="hero__pagination-button" type="button" data-hero-bullet="1"
+                            aria-label="Показать слайд 2"></button>
+                        <button class="hero__pagination-button" type="button" data-hero-bullet="2"
+                            aria-label="Показать слайд 3"></button>
+                        <button class="hero__pagination-button" type="button" data-hero-bullet="3"
+                            aria-label="Показать слайд 4"></button>
+                        <button class="hero__pagination-button" type="button" data-hero-bullet="4"
+                            aria-label="Показать слайд 5"></button>
+                        <button class="hero__pagination-button" type="button" data-hero-bullet="5"
+                            aria-label="Показать слайд 6"></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>
