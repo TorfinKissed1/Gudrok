@@ -59,11 +59,12 @@
                     </div>
 
                     <div class="header__actions">
-                        <button class="header__callback" type="button">Обратный звонок</button>
-                        <a class="header__cart" href="#cart" aria-label="Корзина">
+                        <button class="header__callback" type="button" data-modal-open="callback">Обратный
+                            звонок</button>
+                        <button class="header__cart" type="button" aria-label="Корзина" data-modal-open="order">
                             <img class="header__cart-icon" src="img/header/cart.png" alt="">
                             <span class="header__cart-count">1</span>
-                        </a>
+                        </button>
                         <button class="header__burger" type="button" aria-label="Открыть меню"
                             aria-controls="mobile-menu" aria-expanded="false" data-menu-open>
                             <img src="img/header/burger.png" alt="">
@@ -110,7 +111,8 @@
 
                     <div class="header__mobile-contacts">
                         <a class="header__mobile-phone" href="tel:+74952214040">+7 (495) 221-40-40</a>
-                        <button class="header__callback header__callback--mobile" type="button">Обратный звонок</button>
+                        <button class="header__callback header__callback--mobile" type="button"
+                            data-modal-open="callback">Обратный звонок</button>
                         <div class="header__mobile-socials" aria-label="Социальные сети">
                             <a class="header__social header__social--vk" href="#" aria-label="ВКонтакте"></a>
                             <a class="header__social header__social--max" href="#" aria-label="MAX"></a>
@@ -143,12 +145,10 @@
                 <div class="hero__body">
                     <div class="hero__tag">Производим плитку с 2018 года</div>
                     <div class="hero__heading">
-                        <h1 class="hero__title">
-                            <span class="hero__title-line">Подберём тротуарную плитку</span>
-                            <span class="hero__title-line">для благоустройства вашего участка</span>
-                        </h1>
+                        <h1 class="hero__title">Подберём тротуарную плитку для благоустройства вашего участка</h1>
                         <div class="hero__subtitle">
-                            <p>заводское производство, <span class="hero__subtitle-line">помощь в расчете и гарантия 5 лет</span></p>
+                            <p>заводское производство, <span class="hero__subtitle-line">помощь в расчете и гарантия 5
+                                    лет</span></p>
                         </div>
                     </div>
                     <a class="hero__button" href="#products">Смотреть плитку в наличии</a>
@@ -183,7 +183,601 @@
                 </div>
             </div>
         </section>
+
+        <section class="main__benefits benefits" id="benefits" aria-label="Преимущества GUDROK">
+            <div class="container benefits__container">
+                <ul class="benefits__list">
+                    <li class="benefits__item">
+                        <span class="benefits__icon" aria-hidden="true">
+                            <img class="benefits__icon-part benefits__icon-part--durability"
+                                src="img/benefits/benefit-durability.svg" alt="">
+                        </span>
+                        <span class="benefits__label benefits__label--desktop">
+                            <span>Прочность</span>
+                            <span>и долговечность</span>
+                        </span>
+                        <span class="benefits__label benefits__label--mobile">
+                            <span>Прочность и</span>
+                            <span>долговечность</span>
+                        </span>
+                    </li>
+                    <li class="benefits__item">
+                        <span class="benefits__icon" aria-hidden="true">
+                            <img class="benefits__icon-part benefits__icon-part--eco" src="img/benefits/benefit-eco.svg"
+                                alt="">
+                        </span>
+                        <span class="benefits__label">
+                            <span>Экологичность</span>
+                            <span>и безопасность</span>
+                        </span>
+                    </li>
+                    <li class="benefits__item">
+                        <span class="benefits__icon" aria-hidden="true">
+                            <img class="benefits__icon-part benefits__icon-part--variety"
+                                src="img/benefits/benefit-variety.svg" alt="">
+                        </span>
+                        <span class="benefits__label">
+                            <span>Разнообразие</span>
+                            <span>цветов и форм</span>
+                        </span>
+                    </li>
+                    <li class="benefits__item">
+                        <span class="benefits__icon" aria-hidden="true">
+                            <img class="benefits__icon-part benefits__icon-part--aesthetic-base"
+                                src="img/benefits/benefit-aesthetic-base.svg" alt="">
+                            <img class="benefits__icon-part benefits__icon-part--aesthetic-left"
+                                src="img/benefits/benefit-aesthetic-spark-left.svg" alt="">
+                            <img class="benefits__icon-part benefits__icon-part--aesthetic-bottom"
+                                src="img/benefits/benefit-aesthetic-spark-bottom.svg" alt="">
+                            <img class="benefits__icon-part benefits__icon-part--aesthetic-right"
+                                src="img/benefits/benefit-aesthetic-spark-right.svg" alt="">
+                        </span>
+                        <span class="benefits__label benefits__label--desktop">
+                            <span>Эстетика</span>
+                            <span>внешнего вида</span>
+                        </span>
+                        <span class="benefits__label benefits__label--mobile">
+                            <span>Эстетика</span>
+                            <span>внешнего</span>
+                            <span>вида</span>
+                        </span>
+                    </li>
+                    <li class="benefits__item">
+                        <span class="benefits__icon" aria-hidden="true">
+                            <img class="benefits__icon-part benefits__icon-part--quality"
+                                src="img/benefits/benefit-quality.svg" alt="">
+                        </span>
+                        <span class="benefits__label benefits__label--desktop">
+                            <span>Контроль качества</span>
+                            <span>на всех этапах</span>
+                        </span>
+                        <span class="benefits__label benefits__label--mobile">
+                            <span>Контроль</span>
+                            <span>качества на</span>
+                            <span>всех этапах</span>
+                        </span>
+                    </li>
+                    <li class="benefits__item">
+                        <span class="benefits__icon" aria-hidden="true">
+                            <img class="benefits__icon-part benefits__icon-part--warranty"
+                                src="img/benefits/benefit-warranty.svg" alt="">
+                        </span>
+                        <span class="benefits__label benefits__label--desktop">
+                            <span>Честная гарантия</span>
+                            <span>5 лет</span>
+                        </span>
+                        <span class="benefits__label benefits__label--mobile">
+                            <span>Честная</span>
+                            <span>гарантия</span>
+                            <span>5 лет</span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="main__products products" id="products" aria-labelledby="products-title">
+            <div class="container products__container">
+                <div class="products__head">
+                    <h2 class="products__title" id="products-title">
+                        Тротуарная плитка <span class="products__title-line">в наличии</span>
+                    </h2>
+                    <p class="products__subtitle">
+                        <span class="products__subtitle-line">Держим складской запас хитов продаж,</span>
+                        <span class="products__subtitle-line">чтобы вы могли получить лучшую тротуарную плитку уже сегодня</span>
+                    </p>
+                </div>
+
+                <div class="products__list">
+                    <article class="products__card product-card" data-product-card>
+                        <div class="product-card__media">
+                            <div class="product-card__slider keen-slider" data-product-slider>
+                                <div class="product-card__slide keen-slider__slide"
+                                    style="--product-slide-image: url('../img/products/product-new-city-01.png'); --product-slide-image-mobile: url('../img/products/product-new-city-mobile.png');">
+                                </div>
+                                <div class="product-card__slide keen-slider__slide"
+                                    style="--product-slide-image: url('../img/products/product-new-city-01.png'); --product-slide-image-mobile: url('../img/products/product-new-city-mobile.png');">
+                                </div>
+                                <div class="product-card__slide keen-slider__slide"
+                                    style="--product-slide-image: url('../img/products/product-new-city-01.png'); --product-slide-image-mobile: url('../img/products/product-new-city-mobile.png');">
+                                </div>
+                                <div class="product-card__slide keen-slider__slide"
+                                    style="--product-slide-image: url('../img/products/product-new-city-01.png'); --product-slide-image-mobile: url('../img/products/product-new-city-mobile.png');">
+                                </div>
+                            </div>
+
+                            <div class="product-card__arrows" aria-label="Управление слайдером Новый город">
+                                <button class="product-card__arrow product-card__arrow--prev" type="button"
+                                    data-product-prev aria-label="Предыдущий слайд">
+                                    <img src="img/icons/arrow-left.svg" alt="">
+                                </button>
+                                <button class="product-card__arrow product-card__arrow--next" type="button"
+                                    data-product-next aria-label="Следующий слайд">
+                                    <img src="img/icons/arrow-right.svg" alt="">
+                                </button>
+                            </div>
+
+                            <div class="product-card__pagination" data-product-pagination
+                                aria-label="Пагинация слайдера Новый город"></div>
+                        </div>
+
+                        <div class="product-card__info">
+                            <div class="product-card__details">
+                                <h3 class="product-card__title">Новый город</h3>
+                                <ul class="product-card__features">
+                                    <li class="product-card__feature">
+                                        <span class="product-card__feature-icon product-card__feature-icon--walk"
+                                            aria-hidden="true">
+                                            <img src="img/products/icon-walk.svg" alt="">
+                                        </span>
+                                        <span>Оптимальная устойчивость к пешеходным нагрузкам благодаря изготовлению
+                                            методом вибропрессования из бетона B30</span>
+                                    </li>
+                                    <li class="product-card__feature">
+                                        <span
+                                            class="product-card__feature-icon product-card__feature-icon--design"
+                                            aria-hidden="true">
+                                            <img src="img/products/balls.svg" alt="">
+                                        </span>
+                                        <span>Образцовая эстетика: три разных элемента можно компоновать по-разному</span>
+                                    </li>
+                                    <li class="product-card__feature">
+                                        <span class="product-card__feature-icon product-card__feature-icon--texture"
+                                            aria-hidden="true">
+                                            <img src="img/products/icon-texture.svg" alt="">
+                                        </span>
+                                        <span>Благородная текстура</span>
+                                    </li>
+                                    <li class="product-card__feature">
+                                        <span class="product-card__feature-icon product-card__feature-icon--mount"
+                                            aria-hidden="true">
+                                            <img src="img/products/icon-mount.svg" alt="">
+                                        </span>
+                                        <span>Высокая скорость и простота монтажа</span>
+                                    </li>
+                                </ul>
+                                <div class="product-card__separator" aria-hidden="true"></div>
+                                <div class="product-card__size">
+                                    <span class="product-card__size-icon" aria-hidden="true">
+                                        <img src="img/products/icon-size.svg" alt="">
+                                    </span>
+                                    <span>154х249х40, 154х154х40, 154х95х40</span>
+                                </div>
+                                <span class="product-card__details-link">Все характеристики</span>
+                            </div>
+
+                            <div class="product-card__offer">
+                                <p class="product-card__offer-title">
+                                    <span>Выберите цвет,</span>
+                                    <span>чтобы узнать цену и остаток</span>
+                                </p>
+                                <div class="product-card__options" role="group" aria-label="Цвет плитки Новый город">
+                                    <button class="product-card__option is-active" type="button" aria-pressed="true"
+                                        data-product-option data-product-price="2150"
+                                        data-product-stock="Остаток на начало дня: 840 м²"
+                                        data-product-stock-progress="72%" data-product-delivery="завтра"
+                                        data-product-pickup="сегодня" data-product-storage="Хранение">
+                                        <span class="product-card__swatch"
+                                            style="--product-swatch-image: url('../img/products/swatch-stone-gray.svg');"
+                                            aria-hidden="true"></span>
+                                        <span class="product-card__option-label">
+                                            <span>Stone Gray</span>
+                                        </span>
+                                    </button>
+                                    <button class="product-card__option" type="button" aria-pressed="false"
+                                        data-product-option data-product-price="2350"
+                                        data-product-stock="Остаток на начало дня: 620 м²"
+                                        data-product-stock-progress="58%" data-product-delivery="через 2 дня"
+                                        data-product-pickup="сегодня" data-product-storage="Хранение">
+                                        <span class="product-card__swatch"
+                                            style="--product-swatch-image: url('../img/products/swatch-colormix-clinker.svg');"
+                                            aria-hidden="true"></span>
+                                        <span class="product-card__option-label">
+                                            <span>ColorMix</span>
+                                            <span>Клинкер</span>
+                                        </span>
+                                    </button>
+                                    <button class="product-card__option" type="button" aria-pressed="false"
+                                        data-product-option data-product-price="2250"
+                                        data-product-stock="Остаток на начало дня: 510 м²"
+                                        data-product-stock-progress="44%" data-product-delivery="завтра"
+                                        data-product-pickup="завтра" data-product-storage="Хранение">
+                                        <span class="product-card__swatch"
+                                            style="--product-swatch-image: url('../img/products/swatch-colormix-marengo.svg');"
+                                            aria-hidden="true"></span>
+                                        <span class="product-card__option-label">
+                                            <span>ColorMix</span>
+                                            <span>Маренго</span>
+                                        </span>
+                                    </button>
+                                    <button class="product-card__option" type="button" aria-pressed="false"
+                                        data-product-option data-product-price="2290"
+                                        data-product-stock="Остаток на начало дня: 430 м²"
+                                        data-product-stock-progress="36%" data-product-delivery="через 2 дня"
+                                        data-product-pickup="сегодня" data-product-storage="Хранение">
+                                        <span class="product-card__swatch"
+                                            style="--product-swatch-image: url('../img/products/swatch-colormix-latte.svg');"
+                                            aria-hidden="true"></span>
+                                        <span class="product-card__option-label">
+                                            <span>ColorMix</span>
+                                            <span>Латте</span>
+                                        </span>
+                                    </button>
+                                </div>
+
+                                <div class="product-card__offer-info" data-product-offer-info aria-live="polite">
+                                    <div class="product-card__price">
+                                        <span data-product-price-value>2150</span>
+                                        <span>₽/м<sup>2</sup></span>
+                                    </div>
+
+                                    <div class="product-card__stock" style="--product-stock-progress: 72%;"
+                                        data-product-stock-bar>
+                                        <div class="product-card__stock-track" aria-hidden="true">
+                                            <span></span>
+                                        </div>
+                                        <p data-product-stock-text>Остаток на начало дня: 840 м²</p>
+                                    </div>
+
+                                    <ul class="product-card__availability">
+                                        <li>Доставка: <span data-product-delivery-value>завтра</span></li>
+                                        <li>Самовывоз: <span data-product-pickup-value>сегодня</span></li>
+                                        <li data-product-storage-text>Хранение</li>
+                                    </ul>
+                                </div>
+
+                                <button class="product-card__cta" type="button">Узнать свою стоимость</button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="products__card product-card product-card--reverse product-card--paver"
+                        data-product-card>
+                        <div class="product-card__media">
+                            <div class="product-card__slider keen-slider" data-product-slider>
+                                <div class="product-card__slide keen-slider__slide"
+                                    style="--product-slide-image: url('../img/products/product-paver-01.png'); --product-slide-image-mobile: url('../img/products/product-paver-mobile.png');">
+                                </div>
+                                <div class="product-card__slide keen-slider__slide"
+                                    style="--product-slide-image: url('../img/products/product-paver-01.png'); --product-slide-image-mobile: url('../img/products/product-paver-mobile.png');">
+                                </div>
+                                <div class="product-card__slide keen-slider__slide"
+                                    style="--product-slide-image: url('../img/products/product-paver-01.png'); --product-slide-image-mobile: url('../img/products/product-paver-mobile.png');">
+                                </div>
+                                <div class="product-card__slide keen-slider__slide"
+                                    style="--product-slide-image: url('../img/products/product-paver-01.png'); --product-slide-image-mobile: url('../img/products/product-paver-mobile.png');">
+                                </div>
+                            </div>
+
+                            <div class="product-card__arrows" aria-label="Управление слайдером Брусчатка">
+                                <button class="product-card__arrow product-card__arrow--prev" type="button"
+                                    data-product-prev aria-label="Предыдущий слайд">
+                                    <img src="img/icons/arrow-left.svg" alt="">
+                                </button>
+                                <button class="product-card__arrow product-card__arrow--next" type="button"
+                                    data-product-next aria-label="Следующий слайд">
+                                    <img src="img/icons/arrow-right.svg" alt="">
+                                </button>
+                            </div>
+
+                            <div class="product-card__pagination" data-product-pagination
+                                aria-label="Пагинация слайдера Брусчатка"></div>
+                        </div>
+
+                        <div class="product-card__info">
+                            <div class="product-card__details">
+                                <h3 class="product-card__title">Брусчатка</h3>
+                                <ul class="product-card__features">
+                                    <li class="product-card__feature">
+                                        <span class="product-card__feature-icon product-card__feature-icon--walk"
+                                            aria-hidden="true">
+                                            <img src="img/products/icon-walk.svg" alt="">
+                                        </span>
+                                        <span>Оптимальная устойчивость к пешеходным нагрузкам благодаря изготовлению
+                                            методом вибропрессования из бетона B30</span>
+                                    </li>
+                                    <li class="product-card__feature">
+                                        <span class="product-card__feature-icon product-card__feature-icon--car"
+                                            aria-hidden="true">
+                                            <img src="img/products/icon-car.svg" alt="">
+                                        </span>
+                                        <span>Долговечное использование для парковочного места, оптимальная высота 40
+                                            мм</span>
+                                    </li>
+                                    <li class="product-card__feature">
+                                        <span
+                                            class="product-card__feature-icon product-card__feature-icon--design"
+                                            aria-hidden="true">
+                                            <img src="img/products/balls.svg" alt="">
+                                        </span>
+                                        <span>Классическая форма, позволяющая создать любой дизайн: более 15 видов
+                                            раскладок и бесконечное множество рисунков</span>
+                                    </li>
+                                    <li class="product-card__feature">
+                                        <span class="product-card__feature-icon product-card__feature-icon--mount"
+                                            aria-hidden="true">
+                                            <img src="img/products/icon-mount.svg" alt="">
+                                        </span>
+                                        <span>Высокая скорость и простота монтажа</span>
+                                    </li>
+                                </ul>
+                                <div class="product-card__separator" aria-hidden="true"></div>
+                                <div class="product-card__size">
+                                    <span class="product-card__size-icon" aria-hidden="true">
+                                        <img src="img/products/icon-size.svg" alt="">
+                                    </span>
+                                    <span>154х249х40, 154х154х40, 154х95х40</span>
+                                </div>
+                                <span class="product-card__details-link">Все характеристики</span>
+                            </div>
+
+                            <div class="product-card__offer">
+                                <p class="product-card__offer-title">
+                                    <span>Выберите цвет,</span>
+                                    <span>чтобы узнать цену и остаток</span>
+                                </p>
+                                <div class="product-card__options" role="group" aria-label="Цвет плитки Брусчатка">
+                                    <button class="product-card__option is-active" type="button" aria-pressed="true"
+                                        data-product-option data-product-price="890"
+                                        data-product-stock="Остаток на начало дня: 840 м²"
+                                        data-product-stock-progress="72%" data-product-delivery="завтра"
+                                        data-product-pickup="сегодня" data-product-storage="Хранение">
+                                        <span class="product-card__swatch"
+                                            style="--product-swatch-image: url('../img/products/swatch-standart-gray.svg');"
+                                            aria-hidden="true"></span>
+                                        <span class="product-card__option-label">
+                                            <span>Standart</span>
+                                            <span>Серый</span>
+                                        </span>
+                                    </button>
+                                    <button class="product-card__option" type="button" aria-pressed="false"
+                                        data-product-option data-product-price="940"
+                                        data-product-stock="Остаток на начало дня: 710 м²"
+                                        data-product-stock-progress="64%" data-product-delivery="завтра"
+                                        data-product-pickup="сегодня" data-product-storage="Хранение">
+                                        <span class="product-card__swatch"
+                                            style="--product-swatch-image: url('../img/products/swatch-standart-brown.svg');"
+                                            aria-hidden="true"></span>
+                                        <span class="product-card__option-label">
+                                            <span>Standart</span>
+                                            <span>Коричневый</span>
+                                        </span>
+                                    </button>
+                                    <button class="product-card__option" type="button" aria-pressed="false"
+                                        data-product-option data-product-price="990"
+                                        data-product-stock="Остаток на начало дня: 560 м²"
+                                        data-product-stock-progress="52%" data-product-delivery="через 2 дня"
+                                        data-product-pickup="завтра" data-product-storage="Хранение">
+                                        <span class="product-card__swatch"
+                                            style="--product-swatch-image: url('../img/products/swatch-standart-black.svg');"
+                                            aria-hidden="true"></span>
+                                        <span class="product-card__option-label">
+                                            <span>Standart</span>
+                                            <span>Черный</span>
+                                        </span>
+                                    </button>
+                                    <button class="product-card__option" type="button" aria-pressed="false"
+                                        data-product-option data-product-price="960"
+                                        data-product-stock="Остаток на начало дня: 480 м²"
+                                        data-product-stock-progress="45%" data-product-delivery="завтра"
+                                        data-product-pickup="завтра" data-product-storage="Хранение">
+                                        <span class="product-card__swatch"
+                                            style="--product-swatch-image: url('../img/products/swatch-standart-red.svg');"
+                                            aria-hidden="true"></span>
+                                        <span class="product-card__option-label">
+                                            <span>Standart</span>
+                                            <span>Красный</span>
+                                        </span>
+                                    </button>
+                                    <button class="product-card__option" type="button" aria-pressed="false"
+                                        data-product-option data-product-price="1120"
+                                        data-product-stock="Остаток на начало дня: 390 м²"
+                                        data-product-stock-progress="38%" data-product-delivery="через 2 дня"
+                                        data-product-pickup="сегодня" data-product-storage="Хранение">
+                                        <span class="product-card__swatch"
+                                            style="--product-swatch-image: url('../img/products/swatch-white-white.svg');"
+                                            aria-hidden="true"></span>
+                                        <span class="product-card__option-label">
+                                            <span>White</span>
+                                            <span>Белый</span>
+                                        </span>
+                                    </button>
+                                    <button class="product-card__option" type="button" aria-pressed="false"
+                                        data-product-option data-product-price="1090"
+                                        data-product-stock="Остаток на начало дня: 420 м²"
+                                        data-product-stock-progress="41%" data-product-delivery="завтра"
+                                        data-product-pickup="сегодня" data-product-storage="Хранение">
+                                        <span class="product-card__swatch"
+                                            style="--product-swatch-image: url('../img/products/swatch-white-beige.svg');"
+                                            aria-hidden="true"></span>
+                                        <span class="product-card__option-label">
+                                            <span>White</span>
+                                            <span>Бежевый</span>
+                                        </span>
+                                    </button>
+                                    <button class="product-card__option" type="button" aria-pressed="false"
+                                        data-product-option data-product-price="1150"
+                                        data-product-stock="Остаток на начало дня: 360 м²"
+                                        data-product-stock-progress="32%" data-product-delivery="через 2 дня"
+                                        data-product-pickup="завтра" data-product-storage="Хранение">
+                                        <span class="product-card__swatch"
+                                            style="--product-swatch-image: url('../img/products/swatch-white-yellow.svg');"
+                                            aria-hidden="true"></span>
+                                        <span class="product-card__option-label">
+                                            <span>White</span>
+                                            <span>Желтый</span>
+                                        </span>
+                                    </button>
+                                </div>
+
+                                <div class="product-card__offer-info" data-product-offer-info aria-live="polite">
+                                    <div class="product-card__price">
+                                        <span data-product-price-value>890</span>
+                                        <span>₽/м<sup>2</sup></span>
+                                    </div>
+
+                                    <div class="product-card__stock" style="--product-stock-progress: 72%;"
+                                        data-product-stock-bar>
+                                        <div class="product-card__stock-track" aria-hidden="true">
+                                            <span></span>
+                                        </div>
+                                        <p data-product-stock-text>Остаток на начало дня: 840 м²</p>
+                                    </div>
+
+                                    <ul class="product-card__availability">
+                                        <li>Доставка: <span data-product-delivery-value>завтра</span></li>
+                                        <li>Самовывоз: <span data-product-pickup-value>сегодня</span></li>
+                                        <li data-product-storage-text>Хранение</li>
+                                    </ul>
+                                </div>
+
+                                <button class="product-card__cta" type="button">Узнать свою стоимость</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
     </main>
+
+    <div class="modal" aria-hidden="true" hidden data-modal>
+        <button class="modal__backdrop" type="button" aria-label="Закрыть окно" data-modal-close></button>
+        <div class="modal__stage">
+            <section class="modal__dialog modal__dialog--callback" role="dialog" aria-modal="true"
+                aria-labelledby="callback-modal-title" hidden data-modal-dialog="callback">
+                <button class="modal__close" type="button" aria-label="Закрыть окно" data-modal-close>
+                    <img src="img/header/close.png" alt="">
+                </button>
+                <form class="modal-form" action="#" data-modal-form novalidate>
+                    <div class="modal__content">
+                        <div class="modal__title-wrap">
+                            <h2 class="modal__title" id="callback-modal-title">Заказать звонок</h2>
+                        </div>
+                        <p class="modal__text">Мы перезвоним вам и ответим на все интересующие вас вопросы</p>
+                    </div>
+                    <div class="modal-form__fields">
+                        <label class="form-field">
+                            <input class="form-field__input" type="text" name="name" placeholder="Ваше имя"
+                                autocomplete="name" data-required-field data-name-field>
+                        </label>
+                        <label class="form-field">
+                            <input class="form-field__input" type="tel" name="phone" placeholder="Ваш телефон *"
+                                autocomplete="tel" inputmode="tel" maxlength="18" data-required-field data-phone-field>
+                            <span class="form-field__error">Введите номер телефона в формате +7 (XXX) XXX-XX-XX</span>
+                        </label>
+                    </div>
+                    <label class="modal-checkbox">
+                        <input class="modal-checkbox__input" type="checkbox" name="policy" data-required-checkbox>
+                        <span class="modal-checkbox__box" aria-hidden="true"></span>
+                        <span class="modal-checkbox__text">Я соглашаюсь с <a href="#">Политикой
+                                конфиденциальности</a></span>
+                    </label>
+                    <button class="modal__submit" type="submit">Отправить</button>
+                </form>
+            </section>
+
+            <section class="modal__dialog modal__dialog--order" role="dialog" aria-modal="true"
+                aria-labelledby="order-modal-title" hidden data-modal-dialog="order">
+                <button class="modal__close" type="button" aria-label="Закрыть окно" data-modal-close>
+                    <img src="img/header/close.png" alt="">
+                </button>
+                <div class="modal__title-wrap">
+                    <h2 class="modal__title" id="order-modal-title">Мой заказ</h2>
+                </div>
+                <div class="order-summary">
+                    <div class="order-summary__items">
+                        <article class="order-item">
+                            <h3 class="order-item__title">Новый город - Standart Черный</h3>
+                            <dl class="order-item__list">
+                                <div class="order-item__row">
+                                    <dt>Количество поддонов</dt>
+                                    <dd>10,5</dd>
+                                </div>
+                                <div class="order-item__row">
+                                    <dt>Площадь</dt>
+                                    <dd>19,8 кв.м</dd>
+                                </div>
+                                <div class="order-item__row">
+                                    <dt>Цена</dt>
+                                    <dd>32 900 ₽</dd>
+                                </div>
+                            </dl>
+                        </article>
+                        <article class="order-item">
+                            <h3 class="order-item__title">Брусчатка - Standart Белый</h3>
+                            <dl class="order-item__list">
+                                <div class="order-item__row">
+                                    <dt>Количество поддонов</dt>
+                                    <dd>10,5</dd>
+                                </div>
+                                <div class="order-item__row">
+                                    <dt>Площадь</dt>
+                                    <dd>19,8 кв.м</dd>
+                                </div>
+                                <div class="order-item__row">
+                                    <dt>Цена</dt>
+                                    <dd>11 200 ₽</dd>
+                                </div>
+                            </dl>
+                        </article>
+                    </div>
+                    <p class="order-summary__total">Итого: 44 100 ₽</p>
+                </div>
+                <form class="modal-form modal-form--order" action="#" data-modal-form novalidate>
+                    <div class="modal-form__intro">
+                        Укажите ваш телефон и мы перезвоним вам для согласования и уточнения условий заказа
+                    </div>
+                    <label class="form-field">
+                        <input class="form-field__input" type="tel" name="phone" placeholder="Ваш телефон *"
+                            autocomplete="tel" inputmode="tel" maxlength="18" data-required-field data-phone-field>
+                        <span class="form-field__error">Введите номер телефона в формате +7 (XXX) XXX-XX-XX</span>
+                    </label>
+                    <label class="modal-checkbox">
+                        <input class="modal-checkbox__input" type="checkbox" name="policy" data-required-checkbox>
+                        <span class="modal-checkbox__box" aria-hidden="true"></span>
+                        <span class="modal-checkbox__text">Нажимая кнопку, я соглашаюсь с <a href="#">Политикой
+                                конфиденциальности</a></span>
+                    </label>
+                    <button class="modal__submit" type="submit">Отправить заявку</button>
+                </form>
+            </section>
+
+            <section class="modal__dialog modal__dialog--success" role="dialog" aria-modal="true"
+                aria-labelledby="success-modal-title" hidden data-modal-dialog="success">
+                <button class="modal__close" type="button" aria-label="Закрыть окно" data-modal-close>
+                    <img src="img/header/close.png" alt="">
+                </button>
+                <div class="modal__content modal__content--success">
+                    <div class="modal__title-wrap">
+                        <h2 class="modal__title" id="success-modal-title">Заявка отправлена</h2>
+                    </div>
+                    <p class="modal__text modal__text--success">Спасибо за заявку. Мы перезвоним вам в ближайшее рабочее
+                        время.</p>
+                </div>
+                <button class="modal__submit modal__submit--success" type="button" data-modal-close>Хорошо</button>
+            </section>
+        </div>
+    </div>
 </body>
 
 </html>
