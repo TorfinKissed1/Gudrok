@@ -9,6 +9,7 @@ const QUALITY_SLIDE_SPACING = {
   mobile: 8,
 };
 const WHY_CHOICE_SLIDE_DURATION = 150;
+const WHY_CHOICE_DESKTOP_QUERY = "(min-width: 769px) and (hover: hover) and (pointer: fine)";
 const PRODUCT_OFFER_TARGETS = {
   price: "[data-product-price-value]",
   stock: "[data-product-stock-text]",
@@ -1212,7 +1213,9 @@ const initWhyChoiceSlider = (slider) => {
 
   let activeIndex = slides.findIndex((slide) => slide.classList.contains("is-active"));
   const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const desktopInteractionQuery = window.matchMedia(WHY_CHOICE_DESKTOP_QUERY);
   let intervalId;
+  let isPlaying = false;
 
   if (activeIndex < 0) {
     activeIndex = 0;
@@ -1230,11 +1233,17 @@ const initWhyChoiceSlider = (slider) => {
 
   const stopSlider = () => {
     if (!intervalId) {
+      isPlaying = false;
+      slider.classList.remove("is-playing");
+      slider.setAttribute("aria-pressed", "false");
       return;
     }
 
     window.clearInterval(intervalId);
     intervalId = undefined;
+    isPlaying = false;
+    slider.classList.remove("is-playing");
+    slider.setAttribute("aria-pressed", "false");
   };
 
   const startSlider = () => {
@@ -1244,14 +1253,77 @@ const initWhyChoiceSlider = (slider) => {
       return;
     }
 
+    isPlaying = true;
+    slider.classList.add("is-playing");
+    slider.setAttribute("aria-pressed", "true");
+
     intervalId = window.setInterval(() => {
       setActiveSlide(activeIndex + 1);
     }, WHY_CHOICE_SLIDE_DURATION);
   };
 
+  const toggleSlider = () => {
+    if (isPlaying) {
+      stopSlider();
+      return;
+    }
+
+    startSlider();
+  };
+
+  slider.setAttribute("role", "button");
+  slider.setAttribute("tabindex", "0");
+  slider.setAttribute("aria-pressed", "false");
+  slider.setAttribute("aria-label", "Показать выбор форм и цветов");
+
+  slider.addEventListener("mouseenter", () => {
+    if (desktopInteractionQuery.matches) {
+      startSlider();
+    }
+  });
+
+  slider.addEventListener("mouseleave", () => {
+    if (desktopInteractionQuery.matches) {
+      stopSlider();
+    }
+  });
+
+  slider.addEventListener("focusin", () => {
+    if (desktopInteractionQuery.matches) {
+      startSlider();
+    }
+  });
+
+  slider.addEventListener("focusout", () => {
+    if (desktopInteractionQuery.matches) {
+      stopSlider();
+    }
+  });
+
+  slider.addEventListener("click", () => {
+    if (!desktopInteractionQuery.matches) {
+      toggleSlider();
+    }
+  });
+
+  slider.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") {
+      return;
+    }
+
+    event.preventDefault();
+    toggleSlider();
+  });
+
   setActiveSlide(activeIndex);
-  startSlider();
-  reduceMotionQuery.addEventListener("change", startSlider);
+
+  reduceMotionQuery.addEventListener("change", () => {
+    if (reduceMotionQuery.matches) {
+      stopSlider();
+    }
+  });
+
+  desktopInteractionQuery.addEventListener("change", stopSlider);
 };
 
 const initWhy = () => {
@@ -1399,6 +1471,110 @@ const initQuality = () => {
 
 const initFaq = () => {
   const sections = Array.from(document.querySelectorAll("[data-faq]"));
+  const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const transitionHandlers = new WeakMap();
+  const animationFrames = new WeakMap();
+
+  const resetFaqAnswerTransition = (answer) => {
+    const transitionHandler = transitionHandlers.get(answer);
+    const animationFrame = animationFrames.get(answer);
+
+    if (animationFrame) {
+      window.cancelAnimationFrame(animationFrame);
+      animationFrames.delete(answer);
+    }
+
+    if (!transitionHandler) {
+      return;
+    }
+
+    answer.removeEventListener("transitionend", transitionHandler);
+    transitionHandlers.delete(answer);
+  };
+
+  const getFaqAnswerHeight = (answer) => {
+    const content = answer.firstElementChild;
+
+    if (!content) {
+      return answer.scrollHeight;
+    }
+
+    return content.getBoundingClientRect().height;
+  };
+
+  const queueFaqAnimationFrame = (answer, callback) => {
+    const firstFrame = window.requestAnimationFrame(() => {
+      const secondFrame = window.requestAnimationFrame(() => {
+        animationFrames.delete(answer);
+        callback();
+      });
+
+      animationFrames.set(answer, secondFrame);
+    });
+
+    animationFrames.set(answer, firstFrame);
+  };
+
+  const animateFaqAnswer = (answer, shouldOpen) => {
+    resetFaqAnswerTransition(answer);
+
+    if (reduceMotionQuery.matches) {
+      answer.hidden = !shouldOpen;
+      answer.style.height = "";
+      answer.style.opacity = "";
+      return;
+    }
+
+    if (shouldOpen) {
+      const startHeight = answer.hidden ? 0 : answer.getBoundingClientRect().height;
+
+      answer.hidden = false;
+      answer.style.height = `${startHeight}px`;
+      answer.style.opacity = startHeight > 0 ? "1" : "0";
+
+      const onTransitionEnd = (event) => {
+        if (event.target !== answer || event.propertyName !== "height") {
+          return;
+        }
+
+        answer.style.height = "auto";
+        resetFaqAnswerTransition(answer);
+      };
+
+      transitionHandlers.set(answer, onTransitionEnd);
+      answer.addEventListener("transitionend", onTransitionEnd);
+      queueFaqAnimationFrame(answer, () => {
+        answer.style.height = `${getFaqAnswerHeight(answer)}px`;
+        answer.style.opacity = "1";
+      });
+      return;
+    }
+
+    if (answer.hidden) {
+      return;
+    }
+
+    answer.style.height = `${answer.getBoundingClientRect().height}px`;
+    answer.style.opacity = "1";
+
+    const onTransitionEnd = (event) => {
+      if (event.target !== answer || event.propertyName !== "height") {
+        return;
+      }
+
+      answer.hidden = true;
+      answer.style.height = "";
+      answer.style.opacity = "";
+      resetFaqAnswerTransition(answer);
+    };
+
+    transitionHandlers.set(answer, onTransitionEnd);
+    answer.addEventListener("transitionend", onTransitionEnd);
+    queueFaqAnimationFrame(answer, () => {
+      answer.style.height = "0px";
+      answer.style.opacity = "0";
+    });
+  };
 
   sections.forEach((section) => {
     const items = Array.from(section.querySelectorAll(".faq__item"));
@@ -1414,7 +1590,7 @@ const initFaq = () => {
         toggle?.setAttribute("aria-expanded", isOpen ? "true" : "false");
 
         if (answer) {
-          answer.hidden = !isOpen;
+          animateFaqAnswer(answer, isOpen);
         }
       });
     };

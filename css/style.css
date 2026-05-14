@@ -768,11 +768,13 @@ body.is-menu-open {
 .product-card__media {
     --product-media-fluid-aspect: 16 / 9;
 
-    position: relative;
+    position: sticky;
+    top: calc(var(--anchor-scroll-offset) + var(--space-300));
     width: 100%;
     max-width: var(--product-media-width);
     min-width: 0;
     aspect-ratio: var(--media-product-aspect);
+    align-self: flex-start;
     flex: 1 1 var(--product-media-width);
     overflow: hidden;
     border-radius: var(--radius-lg);
@@ -2113,6 +2115,7 @@ body.is-menu-open {
     overflow: hidden;
     color: var(--color-text-inverse);
     background-color: transparent;
+    cursor: pointer;
 }
 
 .why-card--choice[data-choice-tone="dark"] {
@@ -2220,11 +2223,6 @@ body.is-menu-open {
     font-weight: var(--font-weight-regular);
     line-height: var(--why-card-title-line-height);
     letter-spacing: var(--letter-spacing-none);
-}
-
-.why-card--tech .why-card__title,
-.why-card--strength .why-card__title {
-    font-size: var(--why-card-title-large-size);
 }
 
 .why-card__text {
@@ -2913,7 +2911,7 @@ body.is-menu-open {
 }
 
 .order-card__title {
-    max-width: 192px;
+    max-width: 200px;
     font-size: var(--order-card-title-size);
     font-weight: var(--font-weight-regular);
     line-height: var(--line-height-snug);
@@ -2954,6 +2952,8 @@ body.is-menu-open {
     --faq-answer-padding-inline: var(--space-300) 88px;
     --faq-border-color: var(--color-border-map);
     --faq-hover-border-color: rgba(0, 0, 0, 0.15);
+    --faq-motion-duration: 420ms;
+    --faq-motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .faq__container {
@@ -2977,6 +2977,7 @@ body.is-menu-open {
     display: flex;
     flex-direction: column;
     gap: var(--faq-list-gap);
+    overflow-anchor: none;
 }
 
 .faq__item {
@@ -3009,7 +3010,9 @@ body.is-menu-open {
     padding-inline: var(--faq-question-padding-inline);
     color: var(--color-text-faq);
     text-align: left;
-    transition: padding-bottom var(--duration-medium) var(--ease-emphasized);
+    transition:
+        min-height var(--faq-motion-duration) var(--faq-motion-ease),
+        padding-bottom var(--faq-motion-duration) var(--faq-motion-ease);
 }
 
 .faq__item.is-open .faq__question {
@@ -3099,16 +3102,25 @@ body.is-menu-open {
 }
 
 .faq__answer {
-    padding-block: var(--faq-answer-padding-block);
-    padding-inline: var(--faq-answer-padding-inline);
+    box-sizing: border-box;
+    overflow: hidden;
     color: var(--color-text-faq);
     font-size: var(--type-body-size);
     font-weight: var(--font-weight-regular);
     line-height: var(--type-body-line-height);
+    transition:
+        height var(--faq-motion-duration) var(--faq-motion-ease),
+        opacity var(--faq-motion-duration) var(--faq-motion-ease);
+    will-change: height, opacity;
 }
 
 .faq__answer[hidden] {
     display: none;
+}
+
+.faq__answer-content {
+    padding-block: var(--faq-answer-padding-block);
+    padding-inline: var(--faq-answer-padding-inline);
 }
 
 .main__map {
@@ -3727,15 +3739,11 @@ a.map__contact:hover {
     max-height: var(--sale-info-text-max-height);
     overflow-y: auto;
     padding-right: var(--space-100);
-    font-size: var(--font-size-300);
+    font-size: var(--font-size-150);
     font-weight: var(--font-weight-regular);
     line-height: var(--line-height-relaxed);
     scrollbar-gutter: stable;
     overscroll-behavior: contain;
-}
-
-.sale-info-modal__text p+p {
-    margin-top: var(--space-150);
 }
 
 .modal-form {
@@ -3833,7 +3841,7 @@ a.map__contact:hover {
     align-items: flex-start;
     gap: var(--space-200);
     margin-bottom: 16px;
-    text-align: center;
+    text-align: left;
 }
 
 .modal-checkbox__input {
@@ -3895,6 +3903,7 @@ a.map__contact:hover {
 
 .modal-checkbox__text {
     flex: 1 1 auto;
+    max-width: 266px;
     min-width: 0;
     color: var(--color-modal-text);
     font-size: var(--font-size-150);
@@ -3906,6 +3915,7 @@ a.map__contact:hover {
 }
 
 .modal-checkbox__policy {
+    display: contents;
     padding: 0;
     border: 0;
     background-color: transparent;
@@ -3913,13 +3923,32 @@ a.map__contact:hover {
     cursor: pointer;
     font: inherit;
     text-align: inherit;
+    transition: color var(--duration-base) var(--ease-standard);
+}
+
+.modal-checkbox__policy-line {
+    color: var(--color-text-tertiary);
     text-decoration: underline;
     text-underline-offset: 2px;
     transition: color var(--duration-base) var(--ease-standard);
 }
 
-.modal-checkbox__policy:hover {
+.modal-checkbox__policy-line:first-child {
+    display: inline;
+}
+
+.modal-checkbox__policy-line:last-child {
+    display: block;
+    width: max-content;
+}
+
+.modal-checkbox__policy:hover .modal-checkbox__policy-line {
     color: var(--color-brand-orange);
+}
+
+.modal-checkbox__policy:focus-visible .modal-checkbox__policy-line {
+    outline: 2px solid var(--color-brand-orange);
+    outline-offset: 2px;
 }
 
 .modal__submit {
@@ -4074,6 +4103,11 @@ a.map__contact:hover {
         display: none;
     }
 
+    .order-process__steps,
+    .order-process__cards {
+        padding-right: var(--page-padding-inline);
+    }
+
     .order-step,
     .order-card {
         scroll-snap-align: start;
@@ -4087,6 +4121,9 @@ a.map__contact:hover {
     }
 
     .product-card__media {
+        position: relative;
+        top: auto;
+        align-self: stretch;
         width: 100%;
         max-width: none;
         aspect-ratio: var(--product-media-fluid-aspect);
@@ -4914,10 +4951,11 @@ a.map__contact:hover {
 
     .sale__quantity-value {
         padding-inline: 2px;
+        align-items: center;
     }
 
     .sale__quantity-value p:first-child {
-        font-size: var(--type-body-sm-size);
+        font-size: var(--font-size-150);
     }
 
     .sale__quantity-value p:last-child {
@@ -5817,14 +5855,20 @@ a.map__contact:hover {
         gap: var(--space-400);
     }
 
+    .modal-checkbox--policy-inline-mobile .modal-checkbox__policy-line:first-child,
+    .modal-checkbox--policy-inline-mobile .modal-checkbox__policy-line:last-child {
+        display: inline;
+        width: auto;
+    }
+
+    .modal-checkbox--policy-inline-mobile .modal-checkbox__policy-line:first-child::after {
+        content: " ";
+    }
+
     .form-field__input {
         height: 56px;
         padding: var(--space-050) var(--space-150);
         font-size: var(--font-size-150);
-    }
-
-    .modal-checkbox__text {
-        font-size: var(--font-size-100);
     }
 
     .modal__submit {
@@ -6039,6 +6083,7 @@ a.map__contact:hover {
     .warranty__terms-button,
     .quality__tab,
     .quality__arrow,
+    .faq__answer,
     .call-us__phone,
     .call-us__social-link,
     .hero__pagination-button,
