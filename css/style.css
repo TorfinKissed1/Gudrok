@@ -2794,12 +2794,20 @@ body.is-menu-open {
 }
 
 .order-process__title {
-    max-width: 900px;
+    max-width: 1100px;
     color: var(--color-text-primary);
     font-size: var(--type-section-title-size);
     font-weight: var(--type-section-title-weight);
     line-height: var(--type-section-title-line-height);
     text-align: center;
+}
+
+.order-process__title span {
+    display: block;
+}
+
+.order-process__title .order-process__title-mobile-line {
+    display: contents;
 }
 
 .order-process__content {
@@ -2941,6 +2949,7 @@ body.is-menu-open {
     --faq-question-padding-block: var(--space-200);
     --faq-question-padding-inline: var(--space-300);
     --faq-question-text-gap: var(--space-800);
+    --faq-question-open-min-height: var(--control-faq-size);
     --faq-answer-padding-block: var(--space-100) var(--space-400);
     --faq-answer-padding-inline: var(--space-300) 88px;
     --faq-border-color: var(--color-border-map);
@@ -3004,6 +3013,7 @@ body.is-menu-open {
 }
 
 .faq__item.is-open .faq__question {
+    min-height: var(--faq-question-open-min-height);
     padding-bottom: var(--space-0);
 }
 
@@ -5414,16 +5424,20 @@ a.map__contact:hover {
 
     .order-process__title {
         width: 100%;
-        max-width: 336px;
+        max-width: 360px;
         align-self: center;
         font-size: 27px;
         font-weight: var(--font-weight-medium);
-        text-align: center;
+        text-align: left;
     }
 
-    .order-process__title span {
+    .order-process__title .order-process__title-mobile-line {
         display: block;
         white-space: nowrap;
+    }
+
+    .order-process__title .order-process__title-mobile-line span {
+        display: inline;
     }
 
     .order-process__content {
@@ -5465,6 +5479,7 @@ a.map__contact:hover {
         --faq-question-padding-block: var(--space-100);
         --faq-question-padding-inline: var(--space-200);
         --faq-question-text-gap: var(--space-100);
+        --faq-question-open-min-height: var(--control-faq-size);
         --faq-answer-padding-block: var(--space-100) var(--space-300);
         --faq-answer-padding-inline: var(--space-200) var(--space-1000);
     }
