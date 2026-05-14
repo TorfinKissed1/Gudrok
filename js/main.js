@@ -1,5 +1,6 @@
 const HERO_SLIDE_DURATION = 3000;
 const HERO_COMPACT_PAGINATION_COUNT = 4;
+const MODAL_TRANSITION_DURATION = 300;
 const PRODUCT_SLIDE_ANIMATION_DURATION = 500;
 const QUALITY_SLIDE_ANIMATION_DURATION = 500;
 const QUALITY_SLIDE_SPACING = {
@@ -23,10 +24,10 @@ const PHONE_MAX_LENGTH = 18;
 const PHONE_PATTERN = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
 const NAME_DIGIT_PATTERN = /\d/;
 const NAME_DIGITS_PATTERN = /\d/g;
-const GUDROK_MAP_COORDS = [53.221815, 44.948345];
+const GUDROK_MAP_COORDS = [53.221724, 44.948235];
 const GUDROK_MAP_ZOOM = 12;
 const GUDROK_MAP_ADDRESS = "г. Пенза, ул. Лозицкой, 4/1";
-const MAP_SCROLL_ZOOM_DELAY = 200;
+const MAP_SCROLL_ZOOM_DELAY = 50;
 const MAP_DESKTOP_QUERY = "(hover: hover) and (pointer: fine)";
 const MAP_PLACEMARK_DESKTOP = {
   offset: [-40, -88],
@@ -193,8 +194,10 @@ const initModals = () => {
   const headerMenu = document.querySelector("[data-menu]");
   const menuOpenButton = document.querySelector("[data-menu-open]");
   const desktopModalQuery = window.matchMedia("(min-width: 769px)");
+  const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   let activeDialog = null;
   let lastFocusedElement = null;
+  let closeTimerId = 0;
 
   const closeHeaderMenu = () => {
     document.body.classList.remove("is-menu-open");
@@ -227,8 +230,13 @@ const initModals = () => {
       return;
     }
 
+    window.clearTimeout(closeTimerId);
     closeHeaderMenu();
-    lastFocusedElement = document.activeElement;
+
+    if (modal.hidden) {
+      lastFocusedElement = document.activeElement;
+    }
+
     dialogs.forEach((dialog) => {
       dialog.hidden = dialog !== nextDialog;
     });
@@ -239,30 +247,39 @@ const initModals = () => {
     modal.classList.toggle("modal--compact", nextDialog.hasAttribute("data-modal-compact"));
     document.body.classList.add("is-modal-open");
     resetFormState(nextDialog);
+    modal.getBoundingClientRect();
 
     window.requestAnimationFrame(() => {
+      modal.classList.add("modal--open");
       const focusableElements = getFocusableElements(nextDialog);
       focusableElements[0]?.focus();
     });
   };
 
   const closeModal = () => {
-    if (modal.hidden) {
+    if (modal.hidden || !modal.classList.contains("modal--open")) {
       return;
     }
 
-    modal.hidden = true;
+    modal.classList.remove("modal--open");
     modal.setAttribute("aria-hidden", "true");
-    dialogs.forEach((dialog) => {
-      dialog.hidden = true;
-    });
-    modal.classList.remove("modal--compact");
-    document.body.classList.remove("is-modal-open");
-    activeDialog = null;
 
-    if (lastFocusedElement instanceof HTMLElement) {
-      lastFocusedElement.focus();
-    }
+    closeTimerId = window.setTimeout(
+      () => {
+        modal.hidden = true;
+        dialogs.forEach((dialog) => {
+          dialog.hidden = true;
+        });
+        modal.classList.remove("modal--compact");
+        document.body.classList.remove("is-modal-open");
+        activeDialog = null;
+
+        if (lastFocusedElement instanceof HTMLElement) {
+          lastFocusedElement.focus();
+        }
+      },
+      reduceMotionQuery.matches ? 0 : MODAL_TRANSITION_DURATION,
+    );
   };
 
   const validateForm = (form) => {
@@ -1096,20 +1113,6 @@ const getSaleQuantity = (card) => {
   return Number.isFinite(quantity) ? quantity : 0;
 };
 
-const updateCartCount = (increment = 1) => {
-  const cartCount = document.querySelector("[data-cart-count]");
-
-  if (!cartCount) {
-    return;
-  }
-
-  const currentValue = Number(cartCount.textContent);
-  const nextValue = Math.max(0, (Number.isFinite(currentValue) ? currentValue : 0) + increment);
-
-  cartCount.textContent = String(nextValue);
-  cartCount.classList.toggle("header__cart-count--wide", nextValue >= 10);
-};
-
 const setSaleQuantity = (card, quantity) => {
   const maxQuantity = getSaleMaxQuantity(card);
   const nextQuantity = Math.min(Math.max(quantity, 0), maxQuantity);
@@ -1172,7 +1175,6 @@ const initSaleCard = (card) => {
   addButton.addEventListener("click", () => {
     setSaleQuantity(card, SALE_DEFAULT_QUANTITY);
     updateSaleCard(card);
-    updateCartCount();
   });
 
   minusButton.addEventListener("click", () => {
@@ -1500,11 +1502,7 @@ const initYandexMap = () => {
   const createMap = () => {
     const mobileQuery = window.matchMedia(MAP_MOBILE_QUERY);
     const placemarkLayout = ymaps.templateLayoutFactory.createClass(
-      '<span class="map__placemark" aria-hidden="true">' +
-        '<span class="map__placemark-body">' +
-        '<img src="img/map/marker-logo.svg" width="42" height="44" alt="">' +
-        "</span>" +
-        "</span>",
+      '<img class="map__placemark" src="img/map/marker.svg" width="80" height="88" alt="" aria-hidden="true">',
     );
     const placemark = new ymaps.Placemark(
       GUDROK_MAP_COORDS,

@@ -459,7 +459,19 @@ body.is-menu-open {
     font-weight: var(--type-hero-weight);
     line-height: var(--type-hero-line-height);
     text-align: center;
-    text-wrap: balance;
+}
+
+.hero__title-layout,
+.hero__title-line {
+    display: block;
+}
+
+.hero__title-layout--desktop .hero__title-line {
+    white-space: nowrap;
+}
+
+.hero__title-layout--mobile {
+    display: none;
 }
 
 .hero__subtitle {
@@ -2157,6 +2169,7 @@ body.is-menu-open {
 
 .why-card__image--main {
     width: min(100%, var(--why-tech-image-width));
+    flex: 0 0 auto;
     aspect-ratio: 268 / 186;
     overflow: hidden;
 }
@@ -3110,7 +3123,6 @@ body.is-menu-open {
     --map-contact-row-gap: 10px;
     --map-placemark-width: 80px;
     --map-placemark-height: 88px;
-    --map-marker-logo-size: 42px;
     --map-panel-shadow: 0 8px 16px rgba(0, 0, 0, 0.14), 0 0 2px rgba(0, 0, 0, 0.12);
 }
 
@@ -3132,44 +3144,12 @@ body.is-menu-open {
 }
 
 .map__placemark {
-    display: flex;
-    width: var(--map-placemark-width);
-    height: var(--map-placemark-height);
-    align-items: flex-start;
-    justify-content: center;
-    filter: drop-shadow(0 8px 8px rgba(0, 0, 0, 0.14)) drop-shadow(0 0 1px rgba(0, 0, 0, 0.12));
-    cursor: pointer;
-}
-
-.map__placemark::after {
-    position: absolute;
-    bottom: 1px;
-    left: 50%;
-    width: 14px;
-    height: 14px;
-    border-radius: 2px 0 2px 0;
-    background-color: var(--color-bg-surface);
-    content: "";
-    transform: translateX(-50%) rotate(45deg);
-}
-
-.map__placemark-body {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    width: 72px;
-    height: 72px;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--radius-pill);
-    background-color: var(--color-bg-surface);
-}
-
-.map__placemark-body img {
     display: block;
-    width: var(--map-marker-logo-size);
-    height: var(--map-marker-logo-size);
-    object-fit: contain;
+    width: var(--map-placemark-width);
+    max-width: none;
+    height: var(--map-placemark-height);
+    object-fit: fill;
+    cursor: pointer;
 }
 
 .map__info {
@@ -3441,6 +3421,8 @@ a.map__contact:hover {
 }
 
 .modal {
+    --modal-transition: 0.3s ease-out;
+
     position: fixed;
     inset: 0;
     z-index: 100;
@@ -3448,6 +3430,19 @@ a.map__contact:hover {
     align-items: center;
     justify-content: center;
     padding: var(--space-400) var(--space-200);
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition:
+        opacity var(--modal-transition),
+        visibility 0s linear 0.3s;
+}
+
+.modal--open {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+    transition-delay: 0s;
 }
 
 .modal[hidden],
@@ -3482,6 +3477,16 @@ a.map__contact:hover {
     border-radius: var(--radius-lg);
     color: var(--color-modal-text);
     background-color: var(--color-bg-surface);
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+    transition:
+        opacity var(--modal-transition),
+        transform var(--modal-transition);
+}
+
+.modal--open .modal__dialog {
+    opacity: 1;
+    transform: translateY(0) scale(1);
 }
 
 .modal__dialog--callback,
@@ -3824,6 +3829,7 @@ a.map__contact:hover {
     align-items: flex-start;
     gap: var(--space-200);
     margin-bottom: 16px;
+    text-align: center;
 }
 
 .modal-checkbox__input {
@@ -4010,6 +4016,10 @@ a.map__contact:hover {
         min-height: 720px;
     }
 
+    .hero__title {
+        font-size: 64px;
+    }
+
     .hero__arrows {
         margin-bottom: 0;
     }
@@ -4140,8 +4150,8 @@ a.map__contact:hover {
     }
 
     .header__cart-count--wide {
-        min-width: 24px;
-        height: 18px;
+        min-width: 22px;
+        height: 16px;
     }
 
     .header__burger {
@@ -4304,7 +4314,11 @@ a.map__contact:hover {
     }
 
     .hero__title {
-        font-size: 64px;
+        font-size: 62px;
+    }
+
+    .hero__title-layout--desktop .hero__title-line {
+        white-space: normal;
     }
 }
 
@@ -4388,6 +4402,17 @@ a.map__contact:hover {
 }
 
 @media (max-width: 1024px) {
+    .why {
+        --why-tech-image-width: 188px;
+        --why-card-title-large-size: var(--font-size-400);
+        --why-card-body-large-size: var(--font-size-200);
+    }
+
+    .why-card--tech {
+        aspect-ratio: auto;
+        gap: var(--space-150);
+    }
+
     .call-us {
         --call-us-block-width: clamp(560px, 70vw, 720px);
         --call-us-block-top: 48px;
@@ -4670,6 +4695,8 @@ a.map__contact:hover {
     }
 
     .product-card__feature {
+        --product-feature-text-max-width: 445px;
+
         gap: var(--space-100);
         font-size: var(--type-body-sm-size);
         font-weight: var(--font-weight-regular);
@@ -5056,6 +5083,7 @@ a.map__contact:hover {
     .why__title,
     .why-freeze__title {
         font-weight: var(--font-weight-medium);
+        max-width: 336px;
     }
 
     .why__subtitle {
@@ -5069,6 +5097,10 @@ a.map__contact:hover {
         gap: var(--space-300);
         padding: var(--space-300);
         border-radius: var(--why-card-radius-large);
+    }
+    
+    .why-card--tech .why-card__text {
+        max-width: 269px;
     }
 
     .why-card__image--main {
@@ -5123,6 +5155,11 @@ a.map__contact:hover {
         grid-column: 1 / -1;
         grid-row: 6;
         aspect-ratio: var(--media-video-aspect);
+    }
+
+    .why__video--image,
+    .why__video--clip {
+        --why-video-radius: 12px;
     }
 
     .why-card__body {
@@ -5480,7 +5517,6 @@ a.map__contact:hover {
         --map-contact-row-gap: var(--space-100);
         --map-placemark-width: 56px;
         --map-placemark-height: 62px;
-        --map-marker-logo-size: 28px;
     }
 
     .map__canvas {
@@ -5490,22 +5526,6 @@ a.map__contact:hover {
         height: 250px;
         flex: 0 0 auto;
         order: 2;
-    }
-
-    .map__placemark {
-        width: var(--map-placemark-width);
-        height: var(--map-placemark-height);
-        filter: drop-shadow(0 5.8px 5.8px rgba(0, 0, 0, 0.14)) drop-shadow(0 0 0.7px rgba(0, 0, 0, 0.12));
-    }
-
-    .map__placemark::after {
-        width: 10px;
-        height: 10px;
-    }
-
-    .map__placemark-body {
-        width: 48px;
-        height: 48px;
     }
 
     .map__info {
@@ -5601,7 +5621,7 @@ a.map__contact:hover {
     }
 
     .footer__info {
-        width: 100%;
+        max-width: 336px;
     }
 
     .benefits__item {
@@ -5677,6 +5697,28 @@ a.map__contact:hover {
         border-radius: var(--radius-lg);
     }
 
+    .modal.modal--compact:has(.modal__dialog--sale-info:not([hidden])) {
+        align-items: flex-end;
+        padding: var(--space-150) 0 0;
+    }
+
+    .modal.modal--compact:has(.modal__dialog--sale-info:not([hidden])) .modal__stage {
+        align-items: flex-end;
+    }
+
+    .modal.modal--compact .modal__dialog--sale-info {
+        width: 100%;
+        max-height: calc(100dvh - var(--space-150));
+        gap: 35px;
+        padding: var(--space-400) var(--space-200);
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        transform: translateY(100%);
+    }
+
+    .modal.modal--compact.modal--open .modal__dialog--sale-info {
+        transform: translateY(0);
+    }
+
     .modal__dialog--callback,
     .modal__dialog--catalog,
     .modal__dialog--terms,
@@ -5700,8 +5742,31 @@ a.map__contact:hover {
     }
 
     .modal.modal--compact .modal__dialog--sale-info .modal__close {
-        top: var(--space-100);
-        right: var(--space-100);
+        top: var(--space-200);
+        right: var(--space-200);
+    }
+
+    .sale-info-modal {
+        --sale-info-params-width: 100%;
+    }
+
+    .sale-info-modal__head {
+        gap: var(--space-050);
+        padding-right: var(--space-800);
+    }
+
+    .sale-info-modal__title {
+        font-size: 20px;
+        line-height: var(--line-height-snug);
+    }
+
+    .sale-info-modal__subtitle {
+        font-size: var(--font-size-200);
+        line-height: var(--line-height-normal);
+    }
+
+    .sale-info-modal__text {
+        display: none;
     }
 
     .modal__content {
@@ -5787,6 +5852,7 @@ a.map__contact:hover {
 
     .hero__container {
         justify-content: flex-end;
+        max-width: 504px;
     }
 
     .hero__body {
@@ -5798,8 +5864,16 @@ a.map__contact:hover {
     }
 
     .hero__title {
-        max-width: 336px;
+        max-width: 480px;
         font-size: 40px;
+    }
+
+    .hero__title-layout--desktop {
+        display: none;
+    }
+
+    .hero__title-layout--mobile {
+        display: block;
     }
 
     .hero__subtitle {
@@ -5877,13 +5951,18 @@ a.map__contact:hover {
         min-height: 534px;
     }
 
+    .call-us {
+        --call-us-block-top: 196px;
+        --call-us-block-right: calc(50vw - 343px);
+    }
+
     .hero__tag {
         min-height: 34px;
         font-size: var(--font-size-150);
     }
 
     .hero__title {
-        font-size: var(--type-hero-size);
+        font-size: 30px;
     }
 
     .hero__subtitle {
@@ -5892,6 +5971,11 @@ a.map__contact:hover {
 
     .product-card__feature {
         --product-feature-text-max-width: 300px;
+    }
+
+    .why-card--durability .why-card__text,
+    .why-card--quality .why-card__text {
+        max-width: 141px;
     }
 
     .why-freeze__description {
@@ -5903,6 +5987,9 @@ a.map__contact:hover {
 
 @media (max-width: 360px) {
     .hero__title {
+        width: 100vw;
+        max-width: none;
+        margin-inline: calc((100% - 100vw) / 2);
         font-size: 30px;
     }
 
@@ -5920,6 +6007,8 @@ a.map__contact:hover {
 
     .hero__button,
     .hero__arrow,
+    .modal,
+    .modal__dialog,
     .product-card__arrow,
     .product-card__option,
     .product-card__cta,
@@ -5946,5 +6035,9 @@ a.map__contact:hover {
     .hero__pagination-button::before,
     .hero__pagination-button::after {
         transition: none;
+    }
+
+    .modal__dialog {
+        transform: none;
     }
 }
