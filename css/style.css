@@ -2634,7 +2634,7 @@ body.is-menu-open {
     display: inline;
 }
 
-.quality__text-part + .quality__text-part::before {
+.quality__text-part+.quality__text-part::before {
     content: " ";
 }
 
@@ -3278,12 +3278,6 @@ a.map__contact:hover {
     background-color: var(--color-brand-orange);
 }
 
-.call-us {
-    --call-us-block-width: clamp(780px, 84vw, 1368px);
-    --call-us-block-top: -144px;
-    --call-us-block-right: calc(-1 * clamp(430px, 55vw, 820px));
-}
-
 .call-us__container {
     position: relative;
     display: flex;
@@ -3375,9 +3369,9 @@ a.map__contact:hover {
 
 .call-us__media {
     position: absolute;
-    top: var(--call-us-block-top);
-    right: var(--call-us-block-right);
-    width: var(--call-us-block-width);
+    top: -144px;
+    right: -750px;
+    width: 1210px;
     pointer-events: none;
 }
 
@@ -4307,10 +4301,10 @@ a.map__contact:hover {
         justify-content: center;
     }
 
-    .call-us {
-        --call-us-block-width: clamp(680px, 78vw, 980px);
-        --call-us-block-top: -80px;
-        --call-us-block-right: calc(-1 * clamp(320px, 50vw, 620px));
+    .call-us__media {
+        top: -80px;
+        right: -555px;
+        width: 1042px;
     }
 
     .hero__title {
@@ -4413,10 +4407,10 @@ a.map__contact:hover {
         gap: var(--space-150);
     }
 
-    .call-us {
-        --call-us-block-width: clamp(560px, 70vw, 720px);
-        --call-us-block-top: 48px;
-        --call-us-block-right: calc(-1 * clamp(260px, 44vw, 430px));
+    .call-us__media {
+        top: 48px;
+        right: -492px;
+        width: 840px;
     }
 
     .hero {
@@ -5098,7 +5092,7 @@ a.map__contact:hover {
         padding: var(--space-300);
         border-radius: var(--why-card-radius-large);
     }
-    
+
     .why-card--tech .why-card__text {
         max-width: 269px;
     }
@@ -5200,6 +5194,7 @@ a.map__contact:hover {
         height: clamp(56px, 11cqw, 76px);
         transform: none;
     }
+
     .why-card__decor-frame--safe .why-card__decor {
         top: -156px;
         left: -471px;
@@ -5364,7 +5359,7 @@ a.map__contact:hover {
         display: block;
     }
 
-    .quality__text-part + .quality__text-part::before,
+    .quality__text-part+.quality__text-part::before,
     .quality__text-part:nth-child(3)::before {
         content: none;
     }
@@ -5568,10 +5563,9 @@ a.map__contact:hover {
         min-height: 399px;
     }
 
-    .call-us {
-        --call-us-block-width: 460px;
-        --call-us-block-top: 212px;
-        --call-us-block-right: calc(50vw - 470px);
+    .call-us__media {
+        top: 92px;
+        right: -355px;
     }
 
     .call-us__container {
@@ -5951,9 +5945,10 @@ a.map__contact:hover {
         min-height: 534px;
     }
 
-    .call-us {
-        --call-us-block-top: 196px;
-        --call-us-block-right: calc(50vw - 470px);
+    .call-us__media {
+        top: 180px;
+        right: -250px;
+        width: 620px;
     }
 
     .hero__tag {
@@ -5986,6 +5981,7 @@ a.map__contact:hover {
 }
 
 @media (max-width: 360px) {
+
     .hero__title {
         width: 100vw;
         max-width: none;
