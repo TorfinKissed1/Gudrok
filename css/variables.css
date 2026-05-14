@@ -1,7 +1,6 @@
 :root {
   /* Font families */
   --font-family-main: "TikTok Sans", Arial, sans-serif;
-  --font-family-head: "TikTok Sans", Arial, sans-serif;
   --font-family-accent: "Inter", Arial, sans-serif;
 
   /* Font weights */
@@ -23,11 +22,9 @@
   --font-size-925: 96px;
 
   --font-size-hero: 72px;
-  --font-size-caption-sup: 9.03px;
   --font-size-price-unit: 24px;
   --font-size-price-unit-sup: 15.48px;
   --font-size-old-price-unit: 20px;
-  --font-size-old-price-unit-sup: 12.9px;
 
   /* Line heights */
   --line-height-none: 1;
@@ -38,11 +35,8 @@
 
   /* Letter spacing */
   --letter-spacing-none: 0;
-  --letter-spacing-title-sm: -0.64px;
   --letter-spacing-title-md: -1.2px;
   --letter-spacing-contact: -2.04px;
-  --letter-spacing-stat: -2.88px;
-  --letter-spacing-tight: -3px;
 
   /* Semantic typography: desktop */
   --type-hero-size: var(--font-size-hero);
@@ -58,7 +52,6 @@
   --type-subtitle-line-height: var(--line-height-normal);
 
   --type-card-title-size: var(--font-size-600);
-  --type-card-title-line-height: var(--line-height-snug);
   --type-card-title-letter-spacing: var(--letter-spacing-title-md);
   --type-card-title-sm-size: var(--font-size-500);
   --type-card-title-sm-line-height: var(--line-height-snug);
@@ -67,8 +60,6 @@
   --type-body-line-height: var(--line-height-relaxed);
   --type-body-sm-size: var(--font-size-200);
   --type-body-sm-line-height: var(--line-height-normal);
-  --type-caption-size: var(--font-size-150);
-  --type-caption-line-height: var(--line-height-snug);
   --type-chip-size: var(--font-size-200);
   --type-chip-line-height: var(--line-height-normal);
   --type-button-size: var(--font-size-300);
@@ -78,22 +69,17 @@
   --type-price-line-height: var(--line-height-none);
   --type-price-unit-size: var(--font-size-price-unit);
   --type-stat-size: var(--font-size-925);
-  --type-stat-line-height: var(--line-height-tight);
-  --type-stat-letter-spacing: var(--letter-spacing-stat);
   --type-contact-size: var(--font-size-900);
   --type-contact-line-height: var(--line-height-tight);
   --type-contact-letter-spacing: var(--letter-spacing-contact);
 
   /* Colors */
   --color-brand-orange: #f5821f;
-  --color-brand-green: #37bca9;
   --color-danger: #d02121;
 
   --color-text-primary: #2d292a;
   --color-text-strong: #1f1f1f;
   --color-text-faq: #222426;
-  --color-text-black-soft: #151515;
-  --color-text-blue-black: #2e3443;
   --color-text-inverse: #ffffff;
   --color-text-inverse-secondary: rgba(255, 255, 255, 0.6);
   --color-text-muted: #969696;
@@ -113,7 +99,6 @@
   --color-border-map: #cbd4de;
   --color-icon-secondary: rgba(0, 0, 0, 0.7);
   --color-control-dark: rgba(42, 44, 53, 0.7);
-  --color-image-overlay: rgba(0, 0, 0, 0.45);
 
   --color-benefit-sand: #e1dac8;
   --color-benefit-cream: #ddddca;
@@ -133,7 +118,6 @@
   --space-400: 32px;
   --space-500: 40px;
   --space-600: 48px;
-  --space-700: 56px;
   --space-800: 64px;
   --space-1000: 80px;
   --space-1200: 96px;
@@ -141,19 +125,7 @@
 
   /* Layout spacing: desktop */
   --page-padding-inline: var(--space-300);
-  --section-gap: var(--space-1500);
-  --section-padding-block: var(--space-1000);
-  --section-padding-block-lg: var(--space-1200);
-  --section-heading-gap: var(--space-400);
   --section-content-gap: var(--space-800);
-  --hero-text-gap: var(--space-400);
-  --hero-heading-gap: var(--space-350);
-  --hero-content-gap: var(--space-700);
-  --product-list-gap: var(--space-1000);
-  --grid-gap: var(--space-300);
-  --card-content-gap: var(--space-300);
-  --price-panel-gap: var(--space-200);
-  --accordion-gap: var(--space-100);
   --chip-column-gap: var(--space-100);
   --chip-row-gap: var(--space-150);
 
@@ -162,20 +134,15 @@
   --container-narrow-width: 872px;
   --container-text-width: 901px;
   --container-freeze-width: 965px;
-  --container-hero-text-width: 1161px;
   --product-info-width: 421px;
   --product-media-width: 810px;
   --card-width: 424px;
-  --card-step-width: 200px;
-  --benefit-card-size: 312px;
-  --carousel-card-width: 312px;
 
   /* Media ratios instead of fixed content heights */
   --media-product-aspect: 810 / 706;
   --media-sale-aspect: 424 / 352;
   --media-video-aspect: 648 / 312;
   --media-freeze-aspect: 947 / 384;
-  --media-map-mobile-aspect: 360 / 250;
 
   /* Controls */
   --tap-target-min: 44px;
@@ -192,7 +159,6 @@
   --swatch-size: 28px;
   --progress-size: 7px;
   --slider-dot-size: 6px;
-  --slider-dot-active-width: 9px;
 
   /* Radius */
   --radius-xs: 4px;
@@ -210,13 +176,11 @@
 
   /* Effects */
   --blur-glass: 33.6px;
-  --opacity-image-overlay: 0.45;
 
   /* Motion */
   --duration-fast: 150ms;
   --duration-base: 200ms;
   --duration-medium: 300ms;
-  --duration-slow: 500ms;
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
   --ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -229,13 +193,9 @@
     --container-narrow-width: 336px;
     --container-text-width: 336px;
     --container-freeze-width: 336px;
-    --container-hero-text-width: 336px;
     --product-info-width: 100%;
     --product-media-width: 100%;
     --card-width: 100%;
-    --card-step-width: 164px;
-    --benefit-card-size: 164px;
-    --carousel-card-width: 312px;
 
     /* Mobile typography */
     --type-hero-size: 32px;
@@ -248,30 +208,16 @@
     --type-card-title-sm-size: 20px;
     --type-body-size: 14px;
     --type-body-sm-size: 14px;
-    --type-caption-size: 12px;
     --type-chip-size: 12px;
     --type-button-size: 14px;
     --type-price-size: 24px;
     --type-price-unit-size: 16px;
     --type-stat-size: 48px;
-    --type-stat-letter-spacing: -1.44px;
     --type-contact-size: 32px;
     --type-contact-letter-spacing: -0.96px;
 
     /* Mobile spacing */
-    --section-gap: var(--space-800);
-    --section-padding-block: var(--space-800);
-    --section-padding-block-lg: var(--space-800);
-    --section-heading-gap: var(--space-250);
     --section-content-gap: var(--space-400);
-    --hero-text-gap: var(--space-300);
-    --hero-heading-gap: var(--space-250);
-    --hero-content-gap: var(--space-600);
-    --product-list-gap: var(--space-800);
-    --grid-gap: var(--space-100);
-    --card-content-gap: var(--space-250);
-    --price-panel-gap: var(--space-200);
-    --accordion-gap: var(--space-100);
     --chip-column-gap: var(--space-050);
     --chip-row-gap: var(--space-150);
 

@@ -24,8 +24,6 @@
     --products-head-gap: var(--space-400);
     --products-head-content-gap: var(--space-800);
     --products-card-gap: var(--space-1000);
-    --products-mobile-card-gap: 104px;
-    --product-media-height: 706px;
     --product-mobile-media-height: 292px;
     --product-info-gap: var(--space-300);
     --product-details-gap: var(--space-200);
@@ -889,9 +887,6 @@ body.is-menu-open {
 }
 
 .product-card__feature-icon {
-    --fill-0: var(--color-brand-orange);
-    --stroke-0: var(--color-text-strong);
-
     display: inline-flex;
     width: var(--product-feature-icon-size);
     height: var(--product-feature-icon-size);
@@ -970,8 +965,6 @@ body.is-menu-open {
 }
 
 .product-card__size-icon {
-    --fill-0: var(--color-text-strong);
-
     display: inline-flex;
     width: var(--product-feature-icon-size);
     height: var(--product-feature-icon-size);
@@ -1418,14 +1411,6 @@ body.is-menu-open {
     line-height: var(--line-height-normal);
 }
 
-.sale__price sup,
-.sale__old-price sup,
-.sale__stock sup,
-.sale__quantity-value sup {
-    font-size: var(--font-size-price-unit-sup);
-    line-height: var(--line-height-none);
-}
-
 .sale__old-price {
     gap: var(--space-100);
     color: var(--color-text-tertiary);
@@ -1439,10 +1424,6 @@ body.is-menu-open {
 .sale__old-price span:last-child {
     font-size: var(--font-size-old-price-unit);
     line-height: var(--line-height-normal);
-}
-
-.sale__old-price sup {
-    font-size: var(--font-size-old-price-unit-sup);
 }
 
 .sale__pallet-price {
@@ -1998,7 +1979,6 @@ body.is-menu-open {
     --why-card-gap: var(--space-300);
     --why-card-padding: var(--space-300);
     --why-card-title-size: var(--font-size-500);
-    --why-card-title-large-size: var(--font-size-600);
     --why-card-title-line-height: var(--line-height-snug);
     --why-card-body-size: var(--font-size-300);
     --why-card-body-large-size: var(--font-size-400);
@@ -4369,7 +4349,6 @@ a.map__contact:hover {
         --why-card-gap: var(--space-200);
         --why-card-padding: var(--space-200);
         --why-card-title-size: var(--font-size-400);
-        --why-card-title-large-size: var(--font-size-500);
         --why-card-body-size: var(--font-size-200);
         --why-card-body-large-size: var(--font-size-300);
         --why-stat-size: var(--font-size-900);
@@ -4445,7 +4424,6 @@ a.map__contact:hover {
 @media (max-width: 1024px) {
     .why {
         --why-tech-image-width: 188px;
-        --why-card-title-large-size: var(--font-size-400);
         --why-card-body-large-size: var(--font-size-200);
     }
 
@@ -4498,7 +4476,6 @@ a.map__contact:hover {
         --why-card-gap: var(--space-200);
         --why-card-padding: var(--space-200);
         --why-card-title-size: var(--font-size-400);
-        --why-card-title-large-size: var(--font-size-500);
         --why-card-body-size: var(--font-size-200);
         --why-card-body-large-size: var(--font-size-300);
         --why-stat-size: var(--font-size-900);
@@ -4909,10 +4886,6 @@ a.map__contact:hover {
         font-weight: var(--font-weight-medium);
     }
 
-    .sale__price sup {
-        font-size: inherit;
-    }
-
     .sale__old-price {
         font-size: 20px;
     }
@@ -5103,7 +5076,6 @@ a.map__contact:hover {
         --why-card-gap: var(--space-100);
         --why-card-padding: var(--space-100);
         --why-card-title-size: 20px;
-        --why-card-title-large-size: var(--font-size-400);
         --why-card-body-size: var(--font-size-150);
         --why-card-body-large-size: var(--font-size-150);
         --why-card-body-line-height: var(--line-height-normal);
