@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/vendor/keen-slider.min.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/vendor/keen-slider.min.js" defer></script>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" defer></script>
     <script src="js/main.js" defer></script>
 </head>
 
@@ -31,19 +32,19 @@
                                 <a class="header__menu-link" href="#products">Тротуарная плитка</a>
                             </li>
                             <li class="header__menu-item">
-                                <a class="header__menu-link" href="#benefits">Преимущества</a>
+                                <a class="header__menu-link" href="#why">Преимущества</a>
                             </li>
                             <li class="header__menu-item">
                                 <a class="header__menu-link" href="#warranty">Гарантия</a>
                             </li>
                             <li class="header__menu-item">
-                                <a class="header__menu-link" href="#gallery">Галерея</a>
+                                <a class="header__menu-link" href="#quality">Галерея</a>
                             </li>
                             <li class="header__menu-item">
-                                <a class="header__menu-link" href="#delivery">Доставка</a>
+                                <a class="header__menu-link" href="#order-process">Как купить</a>
                             </li>
                             <li class="header__menu-item">
-                                <a class="header__menu-link" href="#map">Где купить</a>
+                                <a class="header__menu-link" href="#map">Контакты</a>
                             </li>
                         </ul>
                     </nav>
@@ -63,7 +64,7 @@
                             звонок</button>
                         <button class="header__cart" type="button" aria-label="Корзина" data-modal-open="order">
                             <img class="header__cart-icon" src="img/header/cart.png" alt="">
-                            <span class="header__cart-count">1</span>
+                            <span class="header__cart-count" data-cart-count>1</span>
                         </button>
                         <button class="header__burger" type="button" aria-label="Открыть меню"
                             aria-controls="mobile-menu" aria-expanded="false" data-menu-open>
@@ -92,19 +93,19 @@
                                 <a class="header__mobile-link" href="#products">Тротуарная плитка</a>
                             </li>
                             <li class="header__mobile-item">
-                                <a class="header__mobile-link" href="#benefits">Преимущества</a>
+                                <a class="header__mobile-link" href="#why">Преимущества</a>
                             </li>
                             <li class="header__mobile-item">
                                 <a class="header__mobile-link" href="#warranty">Гарантия</a>
                             </li>
                             <li class="header__mobile-item">
-                                <a class="header__mobile-link" href="#gallery">Галерея</a>
+                                <a class="header__mobile-link" href="#quality">Галерея</a>
                             </li>
                             <li class="header__mobile-item">
-                                <a class="header__mobile-link" href="#delivery">Доставка</a>
+                                <a class="header__mobile-link" href="#order-process">Как купить</a>
                             </li>
                             <li class="header__mobile-item">
-                                <a class="header__mobile-link" href="#map">Где купить</a>
+                                <a class="header__mobile-link" href="#map">Контакты</a>
                             </li>
                         </ul>
                     </nav>
@@ -367,10 +368,7 @@
                             </div>
 
                             <div class="product-card__offer">
-                                <p class="product-card__offer-title">
-                                    <span>Выберите цвет,</span>
-                                    <span>чтобы узнать цену и остаток</span>
-                                </p>
+                                <p class="product-card__offer-title">Выберите цвет, чтобы узнать цену и остаток</p>
                                 <div class="product-card__options" role="group" aria-label="Цвет плитки Новый город">
                                     <button class="product-card__option is-active" type="button" aria-pressed="true"
                                         data-product-option data-product-price="2150"
@@ -446,7 +444,8 @@
                                     </ul>
                                 </div>
 
-                                <button class="product-card__cta" type="button">Узнать свою стоимость</button>
+                                <button class="product-card__cta" type="button" data-modal-open="cost">Узнать свою
+                                    стоимость</button>
                             </div>
                         </div>
                     </article>
@@ -532,10 +531,7 @@
                             </div>
 
                             <div class="product-card__offer">
-                                <p class="product-card__offer-title">
-                                    <span>Выберите цвет,</span>
-                                    <span>чтобы узнать цену и остаток</span>
-                                </p>
+                                <p class="product-card__offer-title">Выберите цвет, чтобы узнать цену и остаток</p>
                                 <div class="product-card__options" role="group" aria-label="Цвет плитки Брусчатка">
                                     <button class="product-card__option is-active" type="button" aria-pressed="true"
                                         data-product-option data-product-price="890"
@@ -651,14 +647,1012 @@
                                     </ul>
                                 </div>
 
-                                <button class="product-card__cta" type="button">Узнать свою стоимость</button>
+                                <button class="product-card__cta" type="button" data-modal-open="cost">Узнать свою
+                                    стоимость</button>
                             </div>
                         </div>
                     </article>
                 </div>
             </div>
         </section>
+
+        <section class="main__sale sale" id="sale" aria-labelledby="sale-title">
+            <div class="container sale__container">
+                <div class="sale__head">
+                    <h2 class="sale__title" id="sale-title">Распродажа остатков</h2>
+                    <p class="sale__subtitle">
+                        <span>На нашем заводе 28 000 кв.м. складских площадей, но часть из них нужно освобождать.</span>
+                        <span>Ловите выгоду! Распродаем остатки тротуарной плитки по лучшей цене</span>
+                    </p>
+                </div>
+
+                <div class="sale__list">
+                    <article class="sale__card" data-sale-card data-sale-step-area="19.8"
+                        data-sale-step-pallets="1" data-sale-stock-area="207.9" data-sale-stock-pallets="10.5"
+                        data-sale-stock-progress="27%">
+                        <div class="sale__media">
+                            <img src="img/sale/sale-new-city-01.png" width="424" height="352"
+                                alt="Дорожка из плитки Новый город у дома">
+                        </div>
+
+                        <div class="sale__content">
+                            <h3 class="sale__card-title">Новый город</h3>
+                            <div class="sale__meta">
+                                <div class="sale__size">
+                                    <span>154х249х40, 154х154х40, 154х95х40</span>
+                                    <button class="sale__info" type="button" aria-label="Открыть характеристики Новый город"
+                                        data-modal-open="sale-info">
+                                        <img src="img/sale/info.svg" width="20" height="20" alt="">
+                                    </button>
+                                </div>
+                                <div class="sale__chip">
+                                    <img src="img/products/swatch-standart-black.svg" alt="">
+                                    <span>Standart Черный</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sale__offer">
+                            <div class="sale__price-block">
+                                <div class="sale__price-row">
+                                    <p class="sale__price">
+                                        <span>1750</span>
+                                        <span>₽/м<sup>2</sup></span>
+                                    </p>
+                                    <p class="sale__old-price">
+                                        <span>2150</span>
+                                        <span>₽/м<sup>2</sup></span>
+                                    </p>
+                                </div>
+                                <p class="sale__pallet-price">
+                                    <span>34 650</span>
+                                    <span>₽/поддон</span>
+                                </p>
+                            </div>
+
+                            <div class="sale__details">
+                                <div class="sale__stock" style="--sale-stock-progress: 27%;" data-sale-stock-bar>
+                                    <p>
+                                        Остаток: <span data-sale-stock-area-text>207,9</span> м<sup>2</sup>
+                                        <span>(<span data-sale-stock-pallets-text>10,5</span> поддонов)</span>
+                                    </p>
+                                    <div class="sale__stock-track" aria-hidden="true"><span></span></div>
+                                </div>
+
+                                <ul class="sale__availability">
+                                    <li>Доставка: <span>завтра</span></li>
+                                    <li>Самовывоз: <span>сегодня</span></li>
+                                </ul>
+
+                                <div class="sale__actions">
+                                    <div class="sale__quantity" aria-label="Количество плитки">
+                                        <button class="sale__quantity-button" type="button"
+                                            aria-label="Уменьшить количество" data-sale-quantity-minus>
+                                            <span aria-hidden="true">−</span>
+                                        </button>
+                                        <div class="sale__quantity-value">
+                                            <p><span data-sale-quantity-area>19,8</span> м<sup>2</sup></p>
+                                            <p data-sale-quantity-pallets>1 поддон</p>
+                                        </div>
+                                        <button class="sale__quantity-button" type="button"
+                                            aria-label="Увеличить количество" data-sale-quantity-plus>
+                                            <span aria-hidden="true">+</span>
+                                        </button>
+                                    </div>
+                                    <button class="sale__button sale__button--add" type="button" data-sale-add>Добавить
+                                        в заказ</button>
+                                    <button class="sale__button sale__button--order" type="button"
+                                        data-modal-open="order" data-sale-order disabled>Оформить
+                                        заказ</button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="sale__card" data-sale-card data-sale-step-area="19.8"
+                        data-sale-step-pallets="1" data-sale-stock-area="207.9" data-sale-stock-pallets="10.5"
+                        data-sale-stock-progress="27%">
+                        <div class="sale__media">
+                            <img src="img/sale/sale-new-city-02.png" width="1264" height="711"
+                                alt="Площадка из плитки Новый город у входа в дом">
+                        </div>
+
+                        <div class="sale__content">
+                            <h3 class="sale__card-title">Новый город</h3>
+                            <div class="sale__meta">
+                                <div class="sale__size">
+                                    <span>154х249х40, 154х154х40, 154х95х40</span>
+                                    <button class="sale__info" type="button" aria-label="Открыть характеристики Новый город"
+                                        data-modal-open="sale-info">
+                                        <img src="img/sale/info.svg" width="20" height="20" alt="">
+                                    </button>
+                                </div>
+                                <div class="sale__chip">
+                                    <img src="img/products/swatch-standart-black.svg" alt="">
+                                    <span>Standart Черный</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sale__offer">
+                            <div class="sale__price-block">
+                                <div class="sale__price-row">
+                                    <p class="sale__price">
+                                        <span>1350</span>
+                                        <span>₽/м<sup>2</sup></span>
+                                    </p>
+                                    <p class="sale__old-price">
+                                        <span>1950</span>
+                                        <span>₽/м<sup>2</sup></span>
+                                    </p>
+                                </div>
+                                <p class="sale__pallet-price">
+                                    <span>34 650</span>
+                                    <span>₽/поддон</span>
+                                </p>
+                            </div>
+
+                            <div class="sale__details">
+                                <div class="sale__stock" style="--sale-stock-progress: 27%;" data-sale-stock-bar>
+                                    <p>
+                                        Остаток: <span data-sale-stock-area-text>207,9</span> м<sup>2</sup>
+                                        <span>(<span data-sale-stock-pallets-text>10,5</span> поддонов)</span>
+                                    </p>
+                                    <div class="sale__stock-track" aria-hidden="true"><span></span></div>
+                                </div>
+
+                                <ul class="sale__availability">
+                                    <li>Доставка: <span>завтра</span></li>
+                                    <li>Самовывоз: <span>сегодня</span></li>
+                                </ul>
+
+                                <div class="sale__actions">
+                                    <div class="sale__quantity" aria-label="Количество плитки">
+                                        <button class="sale__quantity-button" type="button"
+                                            aria-label="Уменьшить количество" data-sale-quantity-minus>
+                                            <span aria-hidden="true">−</span>
+                                        </button>
+                                        <div class="sale__quantity-value">
+                                            <p><span data-sale-quantity-area>19,8</span> м<sup>2</sup></p>
+                                            <p data-sale-quantity-pallets>1 поддон</p>
+                                        </div>
+                                        <button class="sale__quantity-button" type="button"
+                                            aria-label="Увеличить количество" data-sale-quantity-plus>
+                                            <span aria-hidden="true">+</span>
+                                        </button>
+                                    </div>
+                                    <button class="sale__button sale__button--add" type="button" data-sale-add>Добавить
+                                        в заказ</button>
+                                    <button class="sale__button sale__button--order" type="button"
+                                        data-modal-open="order" data-sale-order disabled>Оформить
+                                        заказ</button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="sale__card" data-sale-card data-sale-step-area="19.8"
+                        data-sale-step-pallets="1" data-sale-stock-area="207.9" data-sale-stock-pallets="10.5"
+                        data-sale-stock-progress="27%">
+                        <div class="sale__media sale__media--left">
+                            <img src="img/sale/sale-new-city-03.png" width="1264" height="689"
+                                alt="Дворовая площадка из плитки Новый город">
+                        </div>
+
+                        <div class="sale__content">
+                            <h3 class="sale__card-title">Новый город</h3>
+                            <div class="sale__meta">
+                                <div class="sale__size">
+                                    <span>154х249х40, 154х154х40, 154х95х40</span>
+                                    <button class="sale__info" type="button" aria-label="Открыть характеристики Новый город"
+                                        data-modal-open="sale-info">
+                                        <img src="img/sale/info.svg" width="20" height="20" alt="">
+                                    </button>
+                                </div>
+                                <div class="sale__chip">
+                                    <img src="img/products/swatch-standart-black.svg" alt="">
+                                    <span>Standart Черный</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sale__offer">
+                            <div class="sale__price-block">
+                                <div class="sale__price-row">
+                                    <p class="sale__price">
+                                        <span>1750</span>
+                                        <span>₽/м<sup>2</sup></span>
+                                    </p>
+                                    <p class="sale__old-price">
+                                        <span>2150</span>
+                                        <span>₽/м<sup>2</sup></span>
+                                    </p>
+                                </div>
+                                <p class="sale__pallet-price">
+                                    <span>34 650</span>
+                                    <span>₽/поддон</span>
+                                </p>
+                            </div>
+
+                            <div class="sale__details">
+                                <div class="sale__stock" style="--sale-stock-progress: 27%;" data-sale-stock-bar>
+                                    <p>
+                                        Остаток: <span data-sale-stock-area-text>207,9</span> м<sup>2</sup>
+                                        <span>(<span data-sale-stock-pallets-text>10,5</span> поддонов)</span>
+                                    </p>
+                                    <div class="sale__stock-track" aria-hidden="true"><span></span></div>
+                                </div>
+
+                                <ul class="sale__availability">
+                                    <li>Доставка: <span>завтра</span></li>
+                                    <li>Самовывоз: <span>сегодня</span></li>
+                                </ul>
+
+                                <div class="sale__actions">
+                                    <div class="sale__quantity" aria-label="Количество плитки">
+                                        <button class="sale__quantity-button" type="button"
+                                            aria-label="Уменьшить количество" data-sale-quantity-minus>
+                                            <span aria-hidden="true">−</span>
+                                        </button>
+                                        <div class="sale__quantity-value">
+                                            <p><span data-sale-quantity-area>19,8</span> м<sup>2</sup></p>
+                                            <p data-sale-quantity-pallets>1 поддон</p>
+                                        </div>
+                                        <button class="sale__quantity-button" type="button"
+                                            aria-label="Увеличить количество" data-sale-quantity-plus>
+                                            <span aria-hidden="true">+</span>
+                                        </button>
+                                    </div>
+                                    <button class="sale__button sale__button--add" type="button" data-sale-add>Добавить
+                                        в заказ</button>
+                                    <button class="sale__button sale__button--order" type="button"
+                                        data-modal-open="order" data-sale-order disabled>Оформить
+                                        заказ</button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="main__custom-order custom-order" id="custom-order" aria-labelledby="custom-order-title">
+            <div class="container custom-order__container">
+                <div class="custom-order__head">
+                    <h2 class="custom-order__title" id="custom-order-title">
+                        <span>Тротуарная плитка</span>
+                        <span>под заказ за 3 недели</span>
+                    </h2>
+                    <p class="custom-order__subtitle">Если вы не ограничены по срокам и желаете идеального
+                        соответствия с дизайн-проектом, изготовим плитку под ваш проект</p>
+                </div>
+
+                <div class="custom-order__body">
+                    <div class="custom-order__cards">
+                        <article class="custom-order-card custom-order-card--forms">
+                            <div class="custom-order-card__media">
+                                <div class="custom-order-card__slider keen-slider" data-custom-order-slider>
+                                    <div class="custom-order-card__slide keen-slider__slide">
+                                        <picture>
+                                            <source media="(max-width: 768px)"
+                                                srcset="img/order/order-forms-mobile.png">
+                                            <img src="img/order/order-forms-01.png" width="2203" height="1074" alt="">
+                                        </picture>
+                                    </div>
+                                    <div class="custom-order-card__slide keen-slider__slide"
+                                        data-custom-order-label="Новый город">
+                                        <picture>
+                                            <source media="(max-width: 768px)"
+                                                srcset="img/order/order-forms-mobile.png">
+                                            <img src="img/order/order-forms-01.png" width="2203" height="1074" alt="">
+                                        </picture>
+                                    </div>
+                                    <div class="custom-order-card__slide keen-slider__slide"
+                                        data-custom-order-label="Брусчатка">
+                                        <picture>
+                                            <source media="(max-width: 768px)"
+                                                srcset="img/order/order-forms-mobile.png">
+                                            <img src="img/order/order-forms-01.png" width="2203" height="1074" alt="">
+                                        </picture>
+                                    </div>
+                                    <div class="custom-order-card__slide keen-slider__slide"
+                                        data-custom-order-label="Классика">
+                                        <picture>
+                                            <source media="(max-width: 768px)"
+                                                srcset="img/order/order-forms-mobile.png">
+                                            <img src="img/order/order-forms-01.png" width="2203" height="1074" alt="">
+                                        </picture>
+                                    </div>
+                                </div>
+                                <div class="custom-order-card__caption">
+                                    <p class="custom-order-card__number">16</p>
+                                    <p class="custom-order-card__text">
+                                        <span>различных</span>
+                                        <span>форм</span>
+                                    </p>
+                                </div>
+                                <div class="custom-order-card__badge" data-custom-order-badge aria-live="polite" hidden>
+                                    <span data-custom-order-badge-label></span>
+                                    <span class="custom-order-card__badge-divider" data-custom-order-badge-divider
+                                        hidden></span>
+                                    <span data-custom-order-badge-value hidden></span>
+                                </div>
+                                <p class="custom-order-card__counter" data-custom-order-counter aria-live="polite"
+                                    hidden>
+                                    <span data-custom-order-current>1</span>
+                                    <span data-custom-order-total>/0</span>
+                                </p>
+                                <div class="custom-order-card__arrows" aria-label="Управление слайдером форм плитки">
+                                    <button class="custom-order-card__arrow custom-order-card__arrow--prev"
+                                        type="button" aria-label="Предыдущая фотография" data-custom-order-prev>
+                                        <img src="img/icons/arrow-left.svg" width="24" height="24" alt="">
+                                    </button>
+                                    <button class="custom-order-card__arrow custom-order-card__arrow--next"
+                                        type="button" aria-label="Следующая фотография" data-custom-order-next>
+                                        <img src="img/icons/arrow-right.svg" width="24" height="24" alt="">
+                                    </button>
+                                </div>
+                                <div class="custom-order-card__pagination" data-custom-order-pagination
+                                    aria-label="Фотографии форм плитки"></div>
+                            </div>
+                        </article>
+
+                        <article class="custom-order-card custom-order-card--colors">
+                            <div class="custom-order-card__media">
+                                <div class="custom-order-card__slider keen-slider" data-custom-order-slider>
+                                    <div class="custom-order-card__slide keen-slider__slide">
+                                        <picture>
+                                            <source media="(max-width: 768px)"
+                                                srcset="img/order/order-colors-mobile.png">
+                                            <img src="img/order/order-colors-01.png" width="1795" height="676" alt="">
+                                        </picture>
+                                    </div>
+                                    <div class="custom-order-card__slide keen-slider__slide"
+                                        data-custom-order-label="Color Mix" data-custom-order-value="Маренго">
+                                        <picture>
+                                            <source media="(max-width: 768px)"
+                                                srcset="img/order/order-colors-mobile.png">
+                                            <img src="img/order/order-colors-01.png" width="1795" height="676" alt="">
+                                        </picture>
+                                    </div>
+                                    <div class="custom-order-card__slide keen-slider__slide"
+                                        data-custom-order-label="Stone Gray">
+                                        <picture>
+                                            <source media="(max-width: 768px)"
+                                                srcset="img/order/order-colors-mobile.png">
+                                            <img src="img/order/order-colors-01.png" width="1795" height="676" alt="">
+                                        </picture>
+                                    </div>
+                                    <div class="custom-order-card__slide keen-slider__slide"
+                                        data-custom-order-label="Color Mix" data-custom-order-value="Latte">
+                                        <picture>
+                                            <source media="(max-width: 768px)"
+                                                srcset="img/order/order-colors-mobile.png">
+                                            <img src="img/order/order-colors-01.png" width="1795" height="676" alt="">
+                                        </picture>
+                                    </div>
+                                </div>
+                                <div class="custom-order-card__caption">
+                                    <p class="custom-order-card__number">32</p>
+                                    <p class="custom-order-card__text">
+                                        <span>цветовых решения</span>
+                                        <span>4 типов</span>
+                                    </p>
+                                </div>
+                                <div class="custom-order-card__badge" data-custom-order-badge aria-live="polite" hidden>
+                                    <span data-custom-order-badge-label></span>
+                                    <span class="custom-order-card__badge-divider" data-custom-order-badge-divider
+                                        hidden></span>
+                                    <span data-custom-order-badge-value hidden></span>
+                                </div>
+                                <p class="custom-order-card__counter" data-custom-order-counter aria-live="polite"
+                                    hidden>
+                                    <span data-custom-order-current>1</span>
+                                    <span data-custom-order-total>/0</span>
+                                </p>
+                                <div class="custom-order-card__arrows" aria-label="Управление слайдером цветов плитки">
+                                    <button class="custom-order-card__arrow custom-order-card__arrow--prev"
+                                        type="button" aria-label="Предыдущая фотография" data-custom-order-prev>
+                                        <img src="img/icons/arrow-left.svg" width="24" height="24" alt="">
+                                    </button>
+                                    <button class="custom-order-card__arrow custom-order-card__arrow--next"
+                                        type="button" aria-label="Следующая фотография" data-custom-order-next>
+                                        <img src="img/icons/arrow-right.svg" width="24" height="24" alt="">
+                                    </button>
+                                </div>
+                                <div class="custom-order-card__pagination" data-custom-order-pagination
+                                    aria-label="Фотографии цветов плитки"></div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <button class="custom-order__button" type="button" data-modal-open="catalog">
+                        <img class="custom-order__button-icon" src="img/order/download-square.svg" width="24"
+                            height="24" alt="" aria-hidden="true">
+                        <span>Получить каталог</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="main__why why" id="why" aria-labelledby="why-title">
+            <div class="container why__container">
+                <div class="why__head">
+                    <h2 class="why__title" id="why-title">Почему выбирают тротуарную плитку GUDROK?</h2>
+                    <p class="why__subtitle">Нас спрашивают: а какая разница, где и как произведена тротуарная
+                        плитка? Сравниваем плитку GUDROK с плиткой, произведенной в гаражных мастерских</p>
+                </div>
+
+                <div class="why__content">
+                    <div class="why__cards">
+                        <article class="why-card why-card--tech">
+                            <div class="why-card__image why-card__image--main">
+                                <img src="img/why/block.webp" width="1264" height="711"
+                                    alt="Тротуарная плитка GUDROK крупным планом">
+                            </div>
+                            <div class="why-card__body why-card__body--centered">
+                                <h3 class="why-card__title">Технологичная</h3>
+                                <div class="why-card__text">
+                                    <p>В основе производства GUDROK — метод полусохого вибропрессования на огромных
+                                        вибропрессах Steif (в смеси при производстве всего 5% воды), что позволяет
+                                        создавать сверхпрочный бетон.</p>
+                                    <p>Кустарные производители используют простое вибролитье — заливку раствора в
+                                        формы, в нем больше воды, материал получается менее долговечным</p>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="why-card why-card--durability">
+                            <div class="why-card__body">
+                                <h3 class="why-card__title">Долговечная</h3>
+                                <p class="why-card__text">Сохраняет потребительские свойства (прочность на сжатие,
+                                    изгиб, морозостойкость, истираемость) не менее</p>
+                            </div>
+                            <p class="why-card__stat">
+                                <span class="why-card__stat-value">25</span>
+                                <span class="why-card__stat-label">лет</span>
+                            </p>
+                        </article>
+
+                        <article class="why-card why-card--choice" data-why-choice-slider data-choice-tone="light">
+                            <div class="why-card__choice-media" aria-hidden="true">
+                                <img class="why-card__choice-slide is-active" src="img/why/why-choice-latte.webp"
+                                    width="624" height="624" alt="" data-why-choice-slide data-choice-tone="light">
+                                <img class="why-card__choice-slide" src="img/why/why-choice-marengo.webp" width="624"
+                                    height="624" alt="" data-why-choice-slide data-choice-tone="light">
+                                <img class="why-card__choice-slide" src="img/why/why-choice-gray.webp" width="624"
+                                    height="624" alt="" data-why-choice-slide data-choice-tone="light">
+                                <img class="why-card__choice-slide" src="img/why/why-choice-brown.webp" width="624"
+                                    height="624" alt="" data-why-choice-slide data-choice-tone="light">
+                                <img class="why-card__choice-slide" src="img/why/why-choice-beige.webp" width="624"
+                                    height="624" alt="" data-why-choice-slide data-choice-tone="light">
+                                <img class="why-card__choice-slide" src="img/why/why-choice-black.webp" width="624"
+                                    height="624" alt="" data-why-choice-slide data-choice-tone="light">
+                                <img class="why-card__choice-slide" src="img/why/why-choice-yellow.webp" width="624"
+                                    height="624" alt="" data-why-choice-slide data-choice-tone="light">
+                                <img class="why-card__choice-slide" src="img/why/why-choice-white.webp" width="624"
+                                    height="624" alt="" data-why-choice-slide data-choice-tone="dark">
+                            </div>
+                            <h3 class="why-card__choice-title">Широкий выбор форм и цветов</h3>
+                        </article>
+
+                        <article class="why-card why-card--quality">
+                            <div class="why-card__body">
+                                <h3 class="why-card__title">Контроль качества</h3>
+                                <p class="why-card__text">Тщательный входной, операционный и приемочный контроль
+                                    качества</p>
+                            </div>
+                        </article>
+
+                        <article class="why-card why-card--safe">
+                            <div class="why-card__body">
+                                <h3 class="why-card__title">Безопасная<br>и комфортная</h3>
+                                <p class="why-card__text">
+                                    <span>Никаких вредных</span>
+                                    <span>испарений в жару,</span>
+                                    <span>а во время дождя</span>
+                                    <span>не образуются лужи</span>
+                                </p>
+                            </div>
+                            <span class="why-card__decor-frame why-card__decor-frame--safe" aria-hidden="true">
+                                <img class="why-card__decor" src="img/why/block.webp" width="1264" height="711"
+                                    alt="">
+                            </span>
+                        </article>
+
+                        <article class="why-card why-card--strength">
+                            <div class="why-card__body">
+                                <h3 class="why-card__title">Прочная</h3>
+                                <div class="why-card__text">
+                                    <p>Используем качественные материалы: чистый кварцевый песок, плотные горные
+                                        породы, бездобавочный цемент, качественные химические добавки и красящие
+                                        пигменты премиального уровня.</p>
+                                    <p>Показатели прочности превышают требования ГОСТа (тротуарная плитка должна
+                                        изготавливаться из бетона B22,5, а наш бетон двумя классами выше)</p>
+                                </div>
+                            </div>
+                            <p class="why-card__stat">
+                                <span class="why-card__stat-value">B30</span>
+                                <span class="why-card__stat-label">бетон</span>
+                            </p>
+                            <img class="why-card__decor why-card__decor--strength"
+                                src="img/why/block.webp" width="1264" height="711" alt="">
+                        </article>
+
+                        <div class="why__video why__video--image">
+                            <picture>
+                                <source media="(max-width: 768px)" srcset="img/why/why-factory-mobile.png">
+                                <img src="img/why/why-factory.png" width="887" height="804"
+                                    alt="Производственная линия GUDROK">
+                            </picture>
+                        </div>
+
+                        <div class="why__video why__video--clip" hidden>
+                            <video autoplay muted loop playsinline preload="metadata" poster="img/why/why-factory.png"
+                                aria-label="Демонстрационный видеофрагмент">
+                                <source src="img/why/why-factory-video.webm" type="video/webm">
+                            </video>
+                        </div>
+                    </div>
+
+                    <div class="why-freeze">
+                        <div class="why-freeze__text">
+                            <h3 class="why-freeze__title">Высокий индекс <span>морозостойкости</span> F200</h3>
+                            <div class="why-freeze__description">
+                                <p>Показатель морозостойкости напрямую связан с сохранением прочности и долговечностью
+                                    плитки. Плитка GUDROK выдерживает 200 и более циклов “замораживание-оттаивание”.
+                                    Из-за низкого водопоглощения (менее 5%) — вода почти не проникает, и ее
+                                    недостаточно для интенсивного разрушения плитки льдом.</p>
+                                <p>Плитка кустарного производства из-за своей структуры и повышенного водопоглощения
+                                    может разрушиться уже через 2-3 сезона, особенно на зонах с заездом авто.</p>
+                            </div>
+                        </div>
+                        <div class="why-freeze__image" aria-hidden="true">
+                            <img src="img/why/ice.jpg" width="947" height="384" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="main__warranty warranty" id="warranty" aria-labelledby="warranty-title">
+            <div class="container warranty__container">
+                <div class="warranty__head">
+                    <h2 class="warranty__title" id="warranty-title">Честная гарантия — 5 лет</h2>
+                    <p class="warranty__subtitle">
+                        Достаточно соблюдать <button class="warranty__terms-button" type="button"
+                            data-modal-open="warranty-terms">условия эксплуатации*</button> — и мы <strong
+                            class="warranty__subtitle-accent">заменим тротуарную плитку GUDROK в течение 5 лет при
+                            обнаружении брака.</strong> Многочисленные испытания, строгий контроль качества и ежегодная
+                        сертификация позволяют нам быть уверенными в своем продукте
+                    </p>
+                </div>
+
+                <div class="warranty__cards" aria-label="Условия сохранения гарантии">
+                    <article class="warranty-card">
+                        <img class="warranty-card__image" src="img/warranty/warranty-card-01.webp" width="540"
+                            height="706" alt="Работа отбойным молотком рядом с домом зимой">
+                        <h3 class="warranty-card__title">Не долбить ломом</h3>
+                        <p class="warranty-card__text">Плитка GUDROK очень прочная, но у бетона B30 есть пределы
+                            нагрузки. Плитка выдержит определенное количество сильных ударов, но это подорвет ее
+                            здоровье. Лед лучше скалывать аккуратно пластиковым инструментом</p>
+                    </article>
+
+                    <article class="warranty-card">
+                        <img class="warranty-card__image" src="img/warranty/warranty-card-02.webp" width="540"
+                            height="706" alt="Мужчина рассыпает песок на дорожку зимой">
+                        <h3 class="warranty-card__title">Не долбить ломом</h3>
+                        <p class="warranty-card__text">Соль, «Антилёд», технические реагенты разъедают бетон. Зимой
+                            поверхность может обледенеть и стать скользкой. Используйте против скольжения песок, мелкий
+                            гравий, мраморную крошку.</p>
+                    </article>
+
+                    <article class="warranty-card">
+                        <img class="warranty-card__image" src="img/warranty/warranty-card-03.webp" width="574"
+                            height="636" alt="Подготовка основания для тротуарной плитки у дома">
+                        <h3 class="warranty-card__title">Правильно подготовить основание</h3>
+                        <p class="warranty-card__text">Неправильная подготовка основания — плитка проседает и
+                            трескается. Со временем покрытие теряет ровность, появляются лужи и перепады высоты.
+                            Используйте для основания щебень фракции 20–40 мм, геотекстиль и послойную трамбовку с
+                            песком.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="main__quality quality" id="quality" aria-labelledby="quality-title" data-quality>
+            <div class="container quality__container">
+                <div class="quality__head">
+                    <h2 class="quality__title" id="quality-title">Настоящее качество подтверждается годами</h2>
+                    <div class="quality__tabs" role="tablist" aria-label="Примеры качества плитки">
+                        <button class="quality__tab is-active" type="button" id="quality-tab-streets" role="tab"
+                            aria-selected="true" aria-controls="quality-panel-streets"
+                            data-quality-tab="streets">На улицах города</button>
+                        <button class="quality__tab" type="button" id="quality-tab-homes" role="tab"
+                            aria-selected="false" aria-controls="quality-panel-homes" data-quality-tab="homes">В частных домах</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container quality__content">
+                <div class="quality__panel is-active" id="quality-panel-streets" role="tabpanel"
+                    aria-labelledby="quality-tab-streets" data-quality-panel="streets">
+                    <div class="quality__text-container">
+                        <div class="quality__text">
+                            <span class="quality__text-part">Наша тротуарная плитка на улицах города</span>
+                            <span class="quality__text-part">возрастом до 7 лет!</span>
+                            <span class="quality__text-part">Тысячи людей ежедневно ходят по ней,</span>
+                            <span class="quality__text-part">а ей хоть бы что</span>
+                        </div>
+                    </div>
+                    <div class="quality__viewport">
+                        <div class="quality__slider-shell">
+                            <div class="quality__slider keen-slider" data-quality-slider>
+                                <article class="quality-slide keen-slider__slide">
+                                    <img class="quality-slide__image" src="img/quality/quality-street.jpg" width="1405"
+                                        height="847" alt="Площадь с тротуарной плиткой GUDROK у городских домов">
+                                    <div class="quality-slide__shade" aria-hidden="true"></div>
+                                    <div class="quality-slide__year">с 2018 года</div>
+                                    <div class="quality-slide__meta">
+                                        <div>Коллекции: City, Брусчатка</div>
+                                        <div>Цвета: ColorMix Серый, ColorMix Серый</div>
+                                    </div>
+                                </article>
+                                <article class="quality-slide keen-slider__slide">
+                                    <img class="quality-slide__image" src="img/quality/quality-street.jpg" width="1405"
+                                        height="847" alt="Городская пешеходная зона с плиткой GUDROK">
+                                    <div class="quality-slide__shade" aria-hidden="true"></div>
+                                    <div class="quality-slide__year">с 2018 года</div>
+                                    <div class="quality-slide__meta">
+                                        <div>Коллекции: City, Брусчатка</div>
+                                        <div>Цвета: ColorMix Серый, ColorMix Серый</div>
+                                    </div>
+                                </article>
+                                <article class="quality-slide keen-slider__slide">
+                                    <img class="quality-slide__image" src="img/quality/quality-street.jpg" width="1405"
+                                        height="847" alt="Тротуарная плитка GUDROK на городской улице">
+                                    <div class="quality-slide__shade" aria-hidden="true"></div>
+                                    <div class="quality-slide__year">с 2018 года</div>
+                                    <div class="quality-slide__meta">
+                                        <div>Коллекции: City, Брусчатка</div>
+                                        <div>Цвета: ColorMix Серый, ColorMix Серый</div>
+                                    </div>
+                                </article>
+                                <article class="quality-slide keen-slider__slide">
+                                    <img class="quality-slide__image" src="img/quality/quality-street.jpg" width="1405"
+                                        height="847" alt="Благоустроенная городская территория с плиткой GUDROK">
+                                    <div class="quality-slide__shade" aria-hidden="true"></div>
+                                    <div class="quality-slide__year">с 2018 года</div>
+                                    <div class="quality-slide__meta">
+                                        <div>Коллекции: City, Брусчатка</div>
+                                        <div>Цвета: ColorMix Серый, ColorMix Серый</div>
+                                    </div>
+                                </article>
+                            </div>
+                            <div class="quality__arrows" aria-label="Управление слайдером городских объектов">
+                                <button class="quality__arrow quality__arrow--prev" type="button"
+                                    aria-label="Предыдущая фотография" data-quality-prev>
+                                    <img src="img/icons/arrow-left.svg" width="24" height="24" alt="">
+                                </button>
+                                <button class="quality__arrow quality__arrow--next" type="button"
+                                    aria-label="Следующая фотография" data-quality-next>
+                                    <img src="img/icons/arrow-right.svg" width="24" height="24" alt="">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quality__panel" id="quality-panel-homes" role="tabpanel" aria-labelledby="quality-tab-homes"
+                    data-quality-panel="homes" hidden>
+                    <div class="quality__text-container">
+                        <div class="quality__text">
+                            <span class="quality__text-part">Наша тротуарная плитка во дворах частных домов</span>
+                            <span class="quality__text-part">годами выдерживает заезды авто,</span>
+                            <span class="quality__text-part">смену сезонов и ежедневную нагрузку</span>
+                        </div>
+                    </div>
+                    <div class="quality__viewport">
+                        <div class="quality__slider-shell">
+                            <div class="quality__slider keen-slider" data-quality-slider>
+                                <article class="quality-slide keen-slider__slide">
+                                    <img class="quality-slide__image" src="img/quality/quality-street.jpg" width="1405"
+                                        height="847" alt="Дворовая территория с тротуарной плиткой GUDROK">
+                                    <div class="quality-slide__shade" aria-hidden="true"></div>
+                                    <div class="quality-slide__year">с 2018 года</div>
+                                    <div class="quality-slide__meta">
+                                        <div>Коллекции: Брусчатка, Новый город</div>
+                                        <div>Цвета: ColorMix Серый, Графит</div>
+                                    </div>
+                                </article>
+                                <article class="quality-slide keen-slider__slide">
+                                    <img class="quality-slide__image" src="img/quality/quality-street.jpg" width="1405"
+                                        height="847" alt="Плитка GUDROK на участке частного дома">
+                                    <div class="quality-slide__shade" aria-hidden="true"></div>
+                                    <div class="quality-slide__year">с 2019 года</div>
+                                    <div class="quality-slide__meta">
+                                        <div>Коллекции: City, Паркет</div>
+                                        <div>Цвета: ColorMix Серый, Песочный</div>
+                                    </div>
+                                </article>
+                                <article class="quality-slide keen-slider__slide">
+                                    <img class="quality-slide__image" src="img/quality/quality-street.jpg" width="1405"
+                                        height="847" alt="Благоустройство частного двора плиткой GUDROK">
+                                    <div class="quality-slide__shade" aria-hidden="true"></div>
+                                    <div class="quality-slide__year">с 2020 года</div>
+                                    <div class="quality-slide__meta">
+                                        <div>Коллекции: Брусчатка, Лайн</div>
+                                        <div>Цвета: ColorMix Серый, Коричневый</div>
+                                    </div>
+                                </article>
+                                <article class="quality-slide keen-slider__slide">
+                                    <img class="quality-slide__image" src="img/quality/quality-street.jpg" width="1405"
+                                        height="847" alt="Тротуарная плитка GUDROK во дворе дома">
+                                    <div class="quality-slide__shade" aria-hidden="true"></div>
+                                    <div class="quality-slide__year">с 2021 года</div>
+                                    <div class="quality-slide__meta">
+                                        <div>Коллекции: Новый город, Классика</div>
+                                        <div>Цвета: ColorMix Серый, Белый</div>
+                                    </div>
+                                </article>
+                            </div>
+                            <div class="quality__arrows" aria-label="Управление слайдером частных домов">
+                                <button class="quality__arrow quality__arrow--prev" type="button"
+                                    aria-label="Предыдущая фотография" data-quality-prev>
+                                    <img src="img/icons/arrow-left.svg" width="24" height="24" alt="">
+                                </button>
+                                <button class="quality__arrow quality__arrow--next" type="button"
+                                    aria-label="Следующая фотография" data-quality-next>
+                                    <img src="img/icons/arrow-right.svg" width="24" height="24" alt="">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="main__order-process order-process" id="order-process"
+            aria-labelledby="order-process-title">
+            <div class="container order-process__container">
+                <h2 class="order-process__title" id="order-process-title"><span>Заказать плитку с завода</span>
+                    <span>GUDROK легко и выгодно</span></h2>
+
+                <div class="order-process__content">
+                    <div class="order-process__viewport">
+                        <ol class="order-process__steps">
+                            <li class="order-process__step order-step">
+                                <span class="order-step__number">1</span>
+                                <p class="order-step__text">Свяжитесь с нами через форму на сайте, по телефону или
+                                    приезжайте в любую точку продаж</p>
+                            </li>
+                            <li class="order-process__step order-step">
+                                <span class="order-step__number">2</span>
+                                <p class="order-step__text">Менеджер выслушает ваши пожелания, задаст вопросы и поможет
+                                    подобрать коллекцию</p>
+                            </li>
+                            <li class="order-process__step order-step">
+                                <span class="order-step__number">3</span>
+                                <p class="order-step__text">Вы оплачиваете заказ</p>
+                            </li>
+                            <li class="order-process__step order-step">
+                                <span class="order-step__number">4</span>
+                                <p class="order-step__text">Мы предлагаем бесплатное складское хранение 2 недели</p>
+                            </li>
+                            <li class="order-process__step order-step">
+                                <span class="order-step__number">5</span>
+                                <p class="order-step__text">Договариваемся о доставке, проводим расчет определяем дату
+                                    поставки</p>
+                            </li>
+                            <li class="order-process__step order-step">
+                                <span class="order-step__number">6</span>
+                                <p class="order-step__text">В день доставки звоним вам, предупреждаем, Вы получаете
+                                    товар</p>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div class="order-process__viewport">
+                        <div class="order-process__cards">
+                            <article class="order-process__card order-card">
+                                <img class="order-card__image order-card__image--price"
+                                    src="img/order-process/order-process-price.webp" width="781" height="805"
+                                    alt="Здание завода GUDROK">
+                                <div class="order-card__shade" aria-hidden="true"></div>
+                                <h3 class="order-card__title">Честные цены</h3>
+                                <p class="order-card__text">Тротуарная плитка напрямую с завода - гарантия лучшей цены.
+                                </p>
+                            </article>
+
+                            <article class="order-process__card order-card">
+                                <img class="order-card__image" src="img/order-process/order-process-storage.webp"
+                                    width="877" height="804" alt="Плитка на складских паллетах">
+                                <div class="order-card__shade" aria-hidden="true"></div>
+                                <h3 class="order-card__title">Хранение<br>на складе</h3>
+                                <p class="order-card__text">Бесплатное хранение первые 2 недели. Сезонное хранение</p>
+                            </article>
+
+                            <article class="order-process__card order-card">
+                                <img class="order-card__image" src="img/order-process/order-process-delivery.webp"
+                                    width="872" height="350" alt="Погрузка тротуарной плитки манипулятором">
+                                <div class="order-card__shade" aria-hidden="true"></div>
+                                <h3 class="order-card__title">Выгодная<br>доставка</h3>
+                                <div class="order-card__list">
+                                    <p>Наш менеджер просчитает стоимость</p>
+                                    <p>Наша служба логистики подберет максимально выгодный транспорт под ваш объем</p>
+                                    <p>Сами позвоним вам, когда машина с заказом поедет на вашу точку</p>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="main__faq faq" id="faq" aria-labelledby="faq-title" data-faq>
+            <div class="container faq__container">
+                <h2 class="faq__title" id="faq-title">Вопросы и ответы</h2>
+
+                <div class="faq__list">
+                    <article class="faq__item">
+                        <h3 class="faq__item-title">
+                            <button class="faq__question" type="button" aria-expanded="false"
+                                aria-controls="faq-answer-payment" data-faq-toggle>
+                                <span class="faq__question-text">Как заплатить и забрать заказ?</span>
+                                <span class="faq__icon" aria-hidden="true">
+                                    <span class="faq__icon-line"></span>
+                                </span>
+                            </button>
+                        </h3>
+                        <div class="faq__answer" id="faq-answer-payment" hidden>
+                            Оплатить заказ можно наличными или безналичным расчетом. Забрать плитку можно самовывозом
+                            со склада или оформить доставку на объект.
+                        </div>
+                    </article>
+
+                    <article class="faq__item">
+                        <h3 class="faq__item-title">
+                            <button class="faq__question" type="button" aria-expanded="false"
+                                aria-controls="faq-answer-defect" data-faq-toggle>
+                                <span class="faq__question-text">А что если обнаружился брак?</span>
+                                <span class="faq__icon" aria-hidden="true">
+                                    <span class="faq__icon-line"></span>
+                                </span>
+                            </button>
+                        </h3>
+                        <div class="faq__answer" id="faq-answer-defect" hidden>
+                            Свяжитесь с менеджером и передайте фото партии. Мы проверим обращение и заменим плитку по
+                            условиям гарантии.
+                        </div>
+                    </article>
+
+                    <article class="faq__item">
+                        <h3 class="faq__item-title">
+                            <button class="faq__question" type="button" aria-expanded="false"
+                                aria-controls="faq-answer-city" data-faq-toggle>
+                                <span class="faq__question-text">Я из другого города, как заказать?</span>
+                                <span class="faq__icon" aria-hidden="true">
+                                    <span class="faq__icon-line"></span>
+                                </span>
+                            </button>
+                        </h3>
+                        <div class="faq__answer" id="faq-answer-city" hidden>
+                            Оставьте заявку или позвоните нам. Менеджер рассчитает объем, стоимость доставки и
+                            подберет удобный способ получения заказа.
+                        </div>
+                    </article>
+
+                    <article class="faq__item">
+                        <h3 class="faq__item-title">
+                            <button class="faq__question" type="button" aria-expanded="false"
+                                aria-controls="faq-answer-storage" data-faq-toggle>
+                                <span class="faq__question-text">Сколько длится бесплатное хранение?</span>
+                                <span class="faq__icon" aria-hidden="true">
+                                    <span class="faq__icon-line"></span>
+                                </span>
+                            </button>
+                        </h3>
+                        <div class="faq__answer" id="faq-answer-storage" hidden>
+                            Бесплатное хранение действует первые 2 недели после оплаты заказа. Более длительное
+                            хранение согласуем отдельно с менеджером.
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="main__map map" id="map" aria-labelledby="map-title">
+            <div class="map__canvas">
+                <div class="map__yandex" id="gudrok-map" data-yandex-map
+                    aria-label="Карта проезда к GUDROK в Пензе"></div>
+            </div>
+
+            <div class="map__info">
+                <h2 class="map__title" id="map-title">Где купить</h2>
+
+                <div class="map__tabs" aria-label="Города и точки продаж">
+                    <button class="map__tab map__tab--active" type="button" aria-pressed="true">Пенза</button>
+                    <button class="map__tab" type="button" aria-pressed="false">Саратов</button>
+                    <button class="map__tab" type="button" aria-pressed="false">Склад</button>
+                </div>
+
+                <img class="map__photo" src="img/map/map-penza.webp" width="544" height="172"
+                    alt="Точка продаж GUDROK в Пензе">
+
+                <address class="map__contacts">
+                    <span class="map__contact">
+                        <img class="map__contact-icon" src="img/map/address.svg" width="24" height="24" alt="">
+                        <span class="map__contact-text">
+                            <span class="map__contact-line">г.Пенза, ул. Лозицкой, 4/1</span>
+                            <span class="map__contact-line">(рядом с Лемана ПРО)</span>
+                        </span>
+                    </span>
+                    <span class="map__contact">
+                        <img class="map__contact-icon" src="img/map/clock.svg" width="24" height="24" alt="">
+                        <span class="map__contact-text">Пн-Сб с 9:00 до 19:00</span>
+                    </span>
+                    <a class="map__contact" href="tel:+79297672515">
+                        <img class="map__contact-icon" src="img/map/phone.svg" width="24" height="24" alt="">
+                        <span class="map__contact-text">+7 (929) 767-25-15</span>
+                    </a>
+                    <a class="map__contact" href="mailto:sales@gudrok.ru">
+                        <img class="map__contact-icon" src="img/map/email.svg" width="24" height="24" alt="">
+                        <span class="map__contact-text map__contact-text--link">sales@gudrok.ru</span>
+                    </a>
+                </address>
+            </div>
+        </section>
+
+        <section class="main__call-us call-us" id="call-us" aria-labelledby="call-us-title">
+            <div class="container call-us__container">
+                <div class="call-us__content">
+                    <h2 class="call-us__title" id="call-us-title">Остались вопросы? Свяжитесь с нами</h2>
+                    <div class="call-us__contacts">
+                        <a class="call-us__phone" href="tel:+79297672515">+7 (929) 767-25-15</a>
+                        <ul class="call-us__socials" aria-label="Социальные сети">
+                            <li class="call-us__social-item">
+                                <a class="call-us__social-link" href="#">
+                                    <img class="call-us__social-icon call-us__social-icon--vk"
+                                        src="img/call-us/vk.svg" width="24" height="15" alt="">
+                                    ВКонтакте
+                                </a>
+                            </li>
+                            <li class="call-us__social-item">
+                                <a class="call-us__social-link" href="#">
+                                    <img class="call-us__social-icon call-us__social-icon--telegram"
+                                        src="img/call-us/telegram.svg" width="24" height="20" alt="">
+                                    Телеграм
+                                </a>
+                            </li>
+                            <li class="call-us__social-item">
+                                <a class="call-us__social-link" href="#">
+                                    <img class="call-us__social-icon call-us__social-icon--max"
+                                        src="img/call-us/max.svg" width="24" height="24" alt="">
+                                    Макс
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="call-us__media" aria-hidden="true">
+                    <img src="img/call-us/block.webp" width="1200" height="803" alt="">
+                </div>
+            </div>
+        </section>
     </main>
+
+    <footer class="footer">
+        <div class="container footer__container">
+            <div class="footer__inner">
+                <div class="footer__info">
+                    <p>© Производственный комбинат «Гудрок», ООО «ГудрокБетонИнвест», ИНН 5036131609 / КПП
+                        503601001, 2017</p>
+                    <p>Производство и продажа бетонных изделий в Пензе с доставкой</p>
+                </div>
+                <p class="footer__developer">Разработка сайта: СЕМЬ ПАП:</p>
+            </div>
+        </div>
+    </footer>
 
     <div class="modal" aria-hidden="true" hidden data-modal>
         <button class="modal__backdrop" type="button" aria-label="Закрыть окно" data-modal-close></button>
@@ -668,7 +1662,7 @@
                 <button class="modal__close" type="button" aria-label="Закрыть окно" data-modal-close>
                     <img src="img/header/close.png" alt="">
                 </button>
-                <form class="modal-form" action="#" data-modal-form novalidate>
+                <form class="modal-form" action="#" data-modal-form data-success-dialog="success" novalidate>
                     <div class="modal__content">
                         <div class="modal__title-wrap">
                             <h2 class="modal__title" id="callback-modal-title">Заказать звонок</h2>
@@ -686,13 +1680,89 @@
                             <span class="form-field__error">Введите номер телефона в формате +7 (XXX) XXX-XX-XX</span>
                         </label>
                     </div>
-                    <label class="modal-checkbox">
-                        <input class="modal-checkbox__input" type="checkbox" name="policy" data-required-checkbox>
-                        <span class="modal-checkbox__box" aria-hidden="true"></span>
-                        <span class="modal-checkbox__text">Я соглашаюсь с <a href="#">Политикой
-                                конфиденциальности</a></span>
-                    </label>
+                    <div class="modal-checkbox">
+                        <input class="modal-checkbox__input" id="callback-policy" type="checkbox" name="policy"
+                            data-required-checkbox>
+                        <label class="modal-checkbox__box" for="callback-policy" aria-hidden="true"></label>
+                        <span class="modal-checkbox__text">
+                            <label for="callback-policy">Я соглашаюсь с</label>
+                            <button class="modal-checkbox__policy" type="button" data-policy-download>Политикой
+                                конфиденциальности</button>
+                        </span>
+                    </div>
                     <button class="modal__submit" type="submit">Отправить</button>
+                </form>
+            </section>
+
+            <section class="modal__dialog modal__dialog--catalog" role="dialog" aria-modal="true"
+                aria-labelledby="catalog-modal-title" hidden data-modal-dialog="catalog">
+                <button class="modal__close" type="button" aria-label="Закрыть окно" data-modal-close>
+                    <img src="img/header/close.png" alt="">
+                </button>
+                <form class="modal-form" action="#" data-modal-form data-success-dialog="success" novalidate>
+                    <div class="modal__content">
+                        <div class="modal__title-wrap">
+                            <h2 class="modal__title" id="catalog-modal-title">Получить каталог</h2>
+                        </div>
+                        <p class="modal__text">Опциональный текст</p>
+                    </div>
+                    <div class="modal-form__fields">
+                        <label class="form-field">
+                            <input class="form-field__input" type="text" name="name" placeholder="Ваше имя"
+                                autocomplete="name" data-required-field data-name-field>
+                        </label>
+                        <label class="form-field">
+                            <input class="form-field__input" type="tel" name="phone" placeholder="Ваш телефон"
+                                autocomplete="tel" inputmode="tel" maxlength="18" data-required-field data-phone-field>
+                            <span class="form-field__error">Введите номер телефона в формате +7 (XXX) XXX-XX-XX</span>
+                        </label>
+                    </div>
+                    <div class="modal-checkbox">
+                        <input class="modal-checkbox__input" id="catalog-policy" type="checkbox" name="policy"
+                            data-required-checkbox>
+                        <label class="modal-checkbox__box" for="catalog-policy" aria-hidden="true"></label>
+                        <span class="modal-checkbox__text">
+                            <label for="catalog-policy">Нажимая кнопку, я соглашаюсь с</label>
+                            <button class="modal-checkbox__policy" type="button" data-policy-download>Политикой
+                                конфиденциальности</button>
+                        </span>
+                    </div>
+                    <button class="modal__submit" type="submit">Отправить</button>
+                </form>
+            </section>
+
+            <section class="modal__dialog modal__dialog--cost" role="dialog" aria-modal="true"
+                aria-labelledby="cost-modal-title" hidden data-modal-dialog="cost">
+                <button class="modal__close" type="button" aria-label="Закрыть окно" data-modal-close>
+                    <img src="img/header/close.png" alt="">
+                </button>
+                <form class="modal-form modal-form--cost" action="#" data-modal-form data-success-dialog="success"
+                    novalidate>
+                    <div class="modal__title-wrap">
+                        <h2 class="modal__title" id="cost-modal-title">Узнайте свою стоимость</h2>
+                    </div>
+                    <p class="modal__text modal__text--cost">Тротуарная плитка обычно отгражается поддонами, мы поможем
+                        вам пересчитать количество плитки так, чтобы избежать большой переплаты.</p>
+                    <div class="modal-form__fields modal-form__fields--cost">
+                        <label class="form-field">
+                            <input class="form-field__input" type="tel" name="phone" placeholder="Ваш телефон *"
+                                autocomplete="tel" inputmode="tel" maxlength="18" data-required-field data-phone-field>
+                            <span class="form-field__error">Введите номер телефона в формате +7 (XXX) XXX-XX-XX</span>
+                        </label>
+                    </div>
+                    <div class="modal-form__footer">
+                        <div class="modal-checkbox">
+                            <input class="modal-checkbox__input" id="cost-policy" type="checkbox" name="policy"
+                                data-required-checkbox>
+                            <label class="modal-checkbox__box" for="cost-policy" aria-hidden="true"></label>
+                            <span class="modal-checkbox__text">
+                                <label for="cost-policy">Нажимая кнопку, я соглашаюсь с</label>
+                                <button class="modal-checkbox__policy" type="button" data-policy-download>Политикой
+                                    конфиденциальности</button>
+                            </span>
+                        </div>
+                        <button class="modal__submit" type="submit">Заказать обратный звонок</button>
+                    </div>
                 </form>
             </section>
 
@@ -743,7 +1813,8 @@
                     </div>
                     <p class="order-summary__total">Итого: 44 100 ₽</p>
                 </div>
-                <form class="modal-form modal-form--order" action="#" data-modal-form novalidate>
+                <form class="modal-form modal-form--order" action="#" data-modal-form data-success-dialog="success"
+                    novalidate>
                     <div class="modal-form__intro">
                         Укажите ваш телефон и мы перезвоним вам для согласования и уточнения условий заказа
                     </div>
@@ -752,14 +1823,97 @@
                             autocomplete="tel" inputmode="tel" maxlength="18" data-required-field data-phone-field>
                         <span class="form-field__error">Введите номер телефона в формате +7 (XXX) XXX-XX-XX</span>
                     </label>
-                    <label class="modal-checkbox">
-                        <input class="modal-checkbox__input" type="checkbox" name="policy" data-required-checkbox>
-                        <span class="modal-checkbox__box" aria-hidden="true"></span>
-                        <span class="modal-checkbox__text">Нажимая кнопку, я соглашаюсь с <a href="#">Политикой
-                                конфиденциальности</a></span>
-                    </label>
+                    <div class="modal-checkbox">
+                        <input class="modal-checkbox__input" id="order-policy" type="checkbox" name="policy"
+                            data-required-checkbox>
+                        <label class="modal-checkbox__box" for="order-policy" aria-hidden="true"></label>
+                        <span class="modal-checkbox__text">
+                            <label for="order-policy">Нажимая кнопку, я соглашаюсь с</label>
+                            <button class="modal-checkbox__policy" type="button" data-policy-download>Политикой
+                                конфиденциальности</button>
+                        </span>
+                    </div>
                     <button class="modal__submit" type="submit">Отправить заявку</button>
                 </form>
+            </section>
+
+            <section class="modal__dialog modal__dialog--terms" role="dialog" aria-modal="true"
+                aria-labelledby="warranty-terms-modal-title" hidden data-modal-dialog="warranty-terms">
+                <button class="modal__close" type="button" aria-label="Закрыть окно" data-modal-close>
+                    <img src="img/header/close.png" alt="">
+                </button>
+                <form class="modal-form modal-form--terms" action="#" data-modal-form
+                    data-success-dialog="contact-success" novalidate>
+                    <div class="modal__content modal__content--terms">
+                        <div class="modal__title-wrap">
+                            <h2 class="modal__title" id="warranty-terms-modal-title">Условия эксплуатации</h2>
+                        </div>
+                        <div class="modal__text modal__text--terms">
+                            <p>При покупке плитки вы получите подробные условия ее эксплуатации, позволяющие сохранить
+                                гарантию.</p>
+                            <p>Вы также можете предварительно получить всю информацию у менеджера.</p>
+                        </div>
+                    </div>
+                    <div class="modal-form__fields modal-form__fields--terms">
+                        <label class="form-field">
+                            <input class="form-field__input" type="tel" name="phone" placeholder="Ваш телефон *"
+                                autocomplete="tel" inputmode="tel" maxlength="18" data-required-field data-phone-field>
+                            <span class="form-field__error">Введите номер телефона в формате +7 (XXX) XXX-XX-XX</span>
+                        </label>
+                    </div>
+                    <div class="modal-form__footer">
+                        <div class="modal-checkbox">
+                            <input class="modal-checkbox__input" id="warranty-terms-policy" type="checkbox"
+                                name="policy" data-required-checkbox>
+                            <label class="modal-checkbox__box" for="warranty-terms-policy" aria-hidden="true"></label>
+                            <span class="modal-checkbox__text">
+                                <label for="warranty-terms-policy">Нажимая кнопку, я соглашаюсь с</label>
+                                <button class="modal-checkbox__policy" type="button" data-policy-download>Политикой
+                                    конфиденциальности</button>
+                            </span>
+                        </div>
+                        <button class="modal__submit" type="submit">Заказать обратный звонок</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="modal__dialog modal__dialog--sale-info sale-info-modal" role="dialog" aria-modal="true"
+                aria-labelledby="sale-info-modal-title" hidden data-modal-dialog="sale-info" data-modal-compact
+                data-modal-click-outside-close>
+                <button class="modal__close" type="button" aria-label="Закрыть окно" data-modal-close></button>
+                <div class="sale-info-modal__head">
+                    <h2 class="sale-info-modal__title" id="sale-info-modal-title">Новый город</h2>
+                    <p class="sale-info-modal__subtitle">Характеристики</p>
+                </div>
+                <div class="sale-info-modal__image">
+                    <img src="img/sale/sale-new-city-characteristics.png" width="199" height="130"
+                        alt="Размеры элементов тротуарной плитки Новый город">
+                </div>
+                <dl class="sale-info-modal__params">
+                    <div class="sale-info-modal__param">
+                        <dt>Технология</dt>
+                        <dd>Двойное вибропрессование</dd>
+                    </div>
+                    <div class="sale-info-modal__param">
+                        <dt>Вес</dt>
+                        <dd>1820 кг</dd>
+                    </div>
+                    <div class="sale-info-modal__param">
+                        <dt>Количество на поддоне</dt>
+                        <dd>9,68 кв.м</dd>
+                    </div>
+                    <div class="sale-info-modal__param">
+                        <dt>Вес поддона</dt>
+                        <dd>1750 кг</dd>
+                    </div>
+                </dl>
+                <div class="sale-info-modal__text" tabindex="0" aria-label="Описание плитки Новый город">
+                    <p>Плитка «Новый город» подходит для пешеходных дорожек, дворовых зон и аккуратного оформления
+                        площадок вокруг дома. Набор из трех форм помогает собирать более живой рисунок без ощущения
+                        однотипной сетки.</p>
+                    <p>Поверхность выдерживает регулярные нагрузки, сохраняет геометрию при укладке и хорошо
+                        сочетается с современными фасадами, газонами, бордюрами и зонами отдыха.</p>
+                </div>
             </section>
 
             <section class="modal__dialog modal__dialog--success" role="dialog" aria-modal="true"
@@ -773,6 +1927,21 @@
                     </div>
                     <p class="modal__text modal__text--success">Спасибо за заявку. Мы перезвоним вам в ближайшее рабочее
                         время.</p>
+                </div>
+                <button class="modal__submit modal__submit--success" type="button" data-modal-close>Хорошо</button>
+            </section>
+
+            <section class="modal__dialog modal__dialog--contact-success" role="dialog" aria-modal="true"
+                aria-labelledby="contact-success-modal-title" hidden data-modal-dialog="contact-success">
+                <button class="modal__close" type="button" aria-label="Закрыть окно" data-modal-close>
+                    <img src="img/header/close.png" alt="">
+                </button>
+                <div class="modal__content modal__content--success">
+                    <div class="modal__title-wrap">
+                        <h2 class="modal__title" id="contact-success-modal-title">Мы с вами свяжемся</h2>
+                    </div>
+                    <p class="modal__text modal__text--success">Спасибо за заявку. Мы перезвоним вам в ближайшее
+                        рабочее время.</p>
                 </div>
                 <button class="modal__submit modal__submit--success" type="button" data-modal-close>Хорошо</button>
             </section>

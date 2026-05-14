@@ -1,6 +1,13 @@
 const HERO_SLIDE_DURATION = 3000;
 const HERO_COMPACT_PAGINATION_COUNT = 4;
 const PRODUCT_SLIDE_ANIMATION_DURATION = 500;
+const QUALITY_SLIDE_ANIMATION_DURATION = 500;
+const QUALITY_SLIDE_SPACING = {
+  desktop: 41,
+  tablet: 24,
+  mobile: 8,
+};
+const WHY_CHOICE_SLIDE_DURATION = 150;
 const PRODUCT_OFFER_TARGETS = {
   price: "[data-product-price-value]",
   stock: "[data-product-stock-text]",
@@ -9,10 +16,33 @@ const PRODUCT_OFFER_TARGETS = {
   pickup: "[data-product-pickup-value]",
   storage: "[data-product-storage-text]",
 };
+const SALE_DEFAULT_QUANTITY = 1;
+const SALE_FRACTION_DIGITS = 1;
+const SALE_PROGRESS_UNIT = "%";
 const PHONE_MAX_LENGTH = 18;
 const PHONE_PATTERN = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
 const NAME_DIGIT_PATTERN = /\d/;
 const NAME_DIGITS_PATTERN = /\d/g;
+const GUDROK_MAP_COORDS = [53.221815, 44.948345];
+const GUDROK_MAP_ZOOM = 12;
+const GUDROK_MAP_ADDRESS = "г. Пенза, ул. Лозицкой, 4/1";
+const MAP_SCROLL_ZOOM_DELAY = 200;
+const MAP_DESKTOP_QUERY = "(hover: hover) and (pointer: fine)";
+const MAP_PLACEMARK_DESKTOP = {
+  offset: [-40, -88],
+  shape: [
+    [-40, -88],
+    [40, 0],
+  ],
+};
+const MAP_PLACEMARK_MOBILE = {
+  offset: [-28, -62],
+  shape: [
+    [-28, -62],
+    [28, 0],
+  ],
+};
+const MAP_MOBILE_QUERY = "(max-width: 768px)";
 
 const formatPhone = (value) => {
   let digits = value.replace(/\D/g, "");
@@ -162,6 +192,7 @@ const initModals = () => {
   const nameInputs = Array.from(modal.querySelectorAll("[data-name-field]"));
   const headerMenu = document.querySelector("[data-menu]");
   const menuOpenButton = document.querySelector("[data-menu-open]");
+  const desktopModalQuery = window.matchMedia("(min-width: 769px)");
   let activeDialog = null;
   let lastFocusedElement = null;
 
@@ -205,6 +236,7 @@ const initModals = () => {
     activeDialog = nextDialog;
     modal.hidden = false;
     modal.setAttribute("aria-hidden", "false");
+    modal.classList.toggle("modal--compact", nextDialog.hasAttribute("data-modal-compact"));
     document.body.classList.add("is-modal-open");
     resetFormState(nextDialog);
 
@@ -224,6 +256,7 @@ const initModals = () => {
     dialogs.forEach((dialog) => {
       dialog.hidden = true;
     });
+    modal.classList.remove("modal--compact");
     document.body.classList.remove("is-modal-open");
     activeDialog = null;
 
@@ -278,6 +311,17 @@ const initModals = () => {
     button.addEventListener("click", closeModal);
   });
 
+  modal.addEventListener("click", (event) => {
+    const isInsideDialog =
+      event.target instanceof Element && event.target.closest("[data-modal-dialog]");
+    const shouldCloseOnOutsideClick =
+      desktopModalQuery.matches || activeDialog?.hasAttribute("data-modal-click-outside-close");
+
+    if (!isInsideDialog && shouldCloseOnOutsideClick) {
+      closeModal();
+    }
+  });
+
   forms.forEach((form) => {
     form.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -286,7 +330,7 @@ const initModals = () => {
         return;
       }
 
-      showDialog("success");
+      showDialog(form.dataset.successDialog);
     });
 
     form.querySelectorAll("[data-required-field]").forEach((field) => {
@@ -828,6 +872,320 @@ const initProductSlider = (card) => {
   });
 };
 
+const initCustomOrderSlider = (card) => {
+  const sliderElement = card.querySelector("[data-custom-order-slider]");
+
+  if (!sliderElement || typeof KeenSlider === "undefined") {
+    return;
+  }
+
+  const slides = Array.from(sliderElement.querySelectorAll(".keen-slider__slide"));
+
+  if (!slides.length) {
+    return;
+  }
+
+  const previousButton = card.querySelector("[data-custom-order-prev]");
+  const nextButton = card.querySelector("[data-custom-order-next]");
+  const pagination = card.querySelector("[data-custom-order-pagination]");
+  const badge = card.querySelector("[data-custom-order-badge]");
+  const badgeLabel = card.querySelector("[data-custom-order-badge-label]");
+  const badgeDivider = card.querySelector("[data-custom-order-badge-divider]");
+  const badgeValue = card.querySelector("[data-custom-order-badge-value]");
+  const counter = card.querySelector("[data-custom-order-counter]");
+  const currentElement = card.querySelector("[data-custom-order-current]");
+  const totalElement = card.querySelector("[data-custom-order-total]");
+  const hasMultipleSlides = slides.length > 1;
+  const detailSlideIndexes = slides.reduce((indexes, slide, index) => {
+    if (slide.dataset.customOrderLabel || slide.dataset.customOrderValue) {
+      indexes.push(index);
+    }
+
+    return indexes;
+  }, []);
+  const totalDetailSlides = String(detailSlideIndexes.length);
+
+  if (previousButton) {
+    previousButton.hidden = !hasMultipleSlides;
+  }
+
+  if (nextButton) {
+    nextButton.hidden = !hasMultipleSlides;
+  }
+
+  if (pagination) {
+    pagination.hidden = !hasMultipleSlides;
+    pagination.replaceChildren();
+  }
+
+  if (!hasMultipleSlides) {
+    return;
+  }
+
+  const paginationButtons = slides.map((slide, index) => {
+    const button = document.createElement("button");
+
+    button.className = "custom-order-card__pagination-button";
+    button.type = "button";
+    button.dataset.customOrderBullet = String(index);
+    button.setAttribute("aria-label", `Показать фото ${index + 1}`);
+
+    pagination?.append(button);
+
+    return button;
+  });
+
+  const setActiveSlide = (activeIndex) => {
+    const activeSlide = slides[activeIndex];
+    const label = activeSlide?.dataset.customOrderLabel || "";
+    const value = activeSlide?.dataset.customOrderValue || "";
+    const hasLabel = Boolean(label || value);
+    const detailSlideNumber = detailSlideIndexes.indexOf(activeIndex) + 1;
+
+    card.classList.toggle("is-detail-slide", hasLabel);
+
+    if (badge) {
+      badge.hidden = !hasLabel;
+    }
+
+    if (counter) {
+      counter.hidden = !hasLabel;
+    }
+
+    if (badgeLabel) {
+      badgeLabel.textContent = label;
+      badgeLabel.hidden = !label;
+    }
+
+    if (badgeDivider) {
+      badgeDivider.hidden = !label || !value;
+    }
+
+    if (badgeValue) {
+      badgeValue.textContent = value;
+      badgeValue.hidden = !value;
+    }
+
+    if (currentElement) {
+      currentElement.textContent = String(detailSlideNumber);
+    }
+
+    if (totalElement) {
+      totalElement.textContent = `/${totalDetailSlides}`;
+    }
+
+    paginationButtons.forEach((button, index) => {
+      const isActive = index === activeIndex;
+
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-current", isActive ? "true" : "false");
+    });
+  };
+
+  const getNearestSlideIndex = (slider, targetIndex) => {
+    const details = slider.track.details;
+    const slidesCount = details.slides.length;
+    const forwardDistance = (targetIndex - details.rel + slidesCount) % slidesCount;
+    const backwardDistance = forwardDistance - slidesCount;
+    const distance =
+      Math.abs(backwardDistance) < Math.abs(forwardDistance)
+        ? backwardDistance
+        : forwardDistance;
+
+    return details.abs + distance;
+  };
+
+  const slider = new KeenSlider(sliderElement, {
+    loop: true,
+    defaultAnimation: {
+      duration: PRODUCT_SLIDE_ANIMATION_DURATION,
+    },
+    created(currentSlider) {
+      setActiveSlide(currentSlider.track.details.rel);
+    },
+    slideChanged(currentSlider) {
+      setActiveSlide(currentSlider.track.details.rel);
+    },
+  });
+
+  previousButton?.addEventListener("click", () => {
+    slider.prev();
+  });
+
+  nextButton?.addEventListener("click", () => {
+    slider.next();
+  });
+
+  paginationButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const slideIndex = Number(button.dataset.customOrderBullet);
+
+      if (Number.isNaN(slideIndex) || slideIndex === slider.track.details.rel) {
+        return;
+      }
+
+      slider.moveToIdx(getNearestSlideIndex(slider, slideIndex), true, {
+        duration: PRODUCT_SLIDE_ANIMATION_DURATION,
+      });
+    });
+  });
+};
+
+const parseSaleNumber = (card, key, fallback = 0) => {
+  const value = Number(card.dataset[key]);
+
+  return Number.isFinite(value) ? value : fallback;
+};
+
+const parseSaleProgress = (card) => {
+  const value = Number.parseFloat(card.dataset.saleStockProgress || "");
+
+  return Number.isFinite(value) ? value : 0;
+};
+
+const formatSaleNumber = (value) => {
+  const roundedValue = Math.round((value + Number.EPSILON) * 10) / 10;
+  const hasFraction = !Number.isInteger(roundedValue);
+
+  return new Intl.NumberFormat("ru-RU", {
+    minimumFractionDigits: hasFraction ? SALE_FRACTION_DIGITS : 0,
+    maximumFractionDigits: SALE_FRACTION_DIGITS,
+  }).format(roundedValue);
+};
+
+const getPalletWord = (value) => {
+  if (!Number.isInteger(value)) {
+    return "поддонов";
+  }
+
+  const absoluteValue = Math.abs(value);
+  const lastTwoDigits = absoluteValue % 100;
+  const lastDigit = absoluteValue % 10;
+
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
+    return "поддонов";
+  }
+
+  if (lastDigit === 1) {
+    return "поддон";
+  }
+
+  if (lastDigit >= 2 && lastDigit <= 4) {
+    return "поддона";
+  }
+
+  return "поддонов";
+};
+
+const getSaleMaxQuantity = (card) => {
+  const configuredMaxQuantity = parseSaleNumber(card, "saleMaxQuantity");
+
+  if (configuredMaxQuantity > 0) {
+    return Math.floor(configuredMaxQuantity);
+  }
+
+  const stockPallets = parseSaleNumber(card, "saleStockPallets");
+  const stepPallets = parseSaleNumber(card, "saleStepPallets", SALE_DEFAULT_QUANTITY);
+
+  return Math.max(SALE_DEFAULT_QUANTITY, Math.floor(stockPallets / stepPallets));
+};
+
+const getSaleQuantity = (card) => {
+  const quantity = Number(card.dataset.saleQuantity);
+
+  return Number.isFinite(quantity) ? quantity : 0;
+};
+
+const updateCartCount = (increment = 1) => {
+  const cartCount = document.querySelector("[data-cart-count]");
+
+  if (!cartCount) {
+    return;
+  }
+
+  const currentValue = Number(cartCount.textContent);
+  const nextValue = Math.max(0, (Number.isFinite(currentValue) ? currentValue : 0) + increment);
+
+  cartCount.textContent = String(nextValue);
+  cartCount.classList.toggle("header__cart-count--wide", nextValue >= 10);
+};
+
+const setSaleQuantity = (card, quantity) => {
+  const maxQuantity = getSaleMaxQuantity(card);
+  const nextQuantity = Math.min(Math.max(quantity, 0), maxQuantity);
+
+  card.dataset.saleQuantity = String(nextQuantity);
+};
+
+const updateSaleCard = (card) => {
+  const quantity = getSaleQuantity(card);
+  const activeQuantity = quantity > 0 ? quantity : 0;
+  const displayQuantity = activeQuantity || SALE_DEFAULT_QUANTITY;
+  const stockArea = parseSaleNumber(card, "saleStockArea");
+  const stockPallets = parseSaleNumber(card, "saleStockPallets");
+  const stepArea = parseSaleNumber(card, "saleStepArea");
+  const stepPallets = parseSaleNumber(card, "saleStepPallets", SALE_DEFAULT_QUANTITY);
+  const initialProgress = parseSaleProgress(card);
+  const remainingArea = Math.max(0, stockArea - stepArea * activeQuantity);
+  const remainingPallets = Math.max(0, stockPallets - stepPallets * activeQuantity);
+  const stockProgress =
+    stockArea > 0 ? initialProgress * (remainingArea / stockArea) : initialProgress;
+  const stockAreaElement = card.querySelector("[data-sale-stock-area-text]");
+  const stockPalletsElement = card.querySelector("[data-sale-stock-pallets-text]");
+  const quantityAreaElement = card.querySelector("[data-sale-quantity-area]");
+  const quantityPalletsElement = card.querySelector("[data-sale-quantity-pallets]");
+  const stockBar = card.querySelector("[data-sale-stock-bar]");
+  const minusButton = card.querySelector("[data-sale-quantity-minus]");
+  const plusButton = card.querySelector("[data-sale-quantity-plus]");
+  const orderButton = card.querySelector("[data-sale-order]");
+  const maxQuantity = getSaleMaxQuantity(card);
+
+  card.classList.toggle("is-added", activeQuantity > 0);
+  stockAreaElement.textContent = formatSaleNumber(remainingArea);
+  stockPalletsElement.textContent = formatSaleNumber(remainingPallets);
+  quantityAreaElement.textContent = formatSaleNumber(stepArea * displayQuantity);
+  quantityPalletsElement.textContent = `${formatSaleNumber(stepPallets * displayQuantity)} ${getPalletWord(
+    stepPallets * displayQuantity
+  )}`;
+  stockBar.style.setProperty(
+    "--sale-stock-progress",
+    `${Math.max(0, stockProgress)}${SALE_PROGRESS_UNIT}`
+  );
+  minusButton.disabled = activeQuantity <= 0;
+  plusButton.disabled = displayQuantity >= maxQuantity;
+  if (orderButton) {
+    orderButton.disabled = activeQuantity <= 0;
+  }
+};
+
+const initSaleCard = (card) => {
+  const addButton = card.querySelector("[data-sale-add]");
+  const minusButton = card.querySelector("[data-sale-quantity-minus]");
+  const plusButton = card.querySelector("[data-sale-quantity-plus]");
+
+  if (!addButton || !minusButton || !plusButton) {
+    return;
+  }
+
+  updateSaleCard(card);
+
+  addButton.addEventListener("click", () => {
+    setSaleQuantity(card, SALE_DEFAULT_QUANTITY);
+    updateSaleCard(card);
+    updateCartCount();
+  });
+
+  minusButton.addEventListener("click", () => {
+    setSaleQuantity(card, getSaleQuantity(card) - SALE_DEFAULT_QUANTITY);
+    updateSaleCard(card);
+  });
+
+  plusButton.addEventListener("click", () => {
+    setSaleQuantity(card, getSaleQuantity(card) + SALE_DEFAULT_QUANTITY);
+    updateSaleCard(card);
+  });
+};
+
 const initProducts = () => {
   const productCards = Array.from(document.querySelectorAll("[data-product-card]"));
 
@@ -837,7 +1195,378 @@ const initProducts = () => {
   });
 };
 
+const initCustomOrder = () => {
+  const cards = Array.from(document.querySelectorAll(".custom-order-card"));
+
+  cards.forEach(initCustomOrderSlider);
+};
+
+const initWhyChoiceSlider = (slider) => {
+  const slides = Array.from(slider.querySelectorAll("[data-why-choice-slide]"));
+
+  if (!slides.length) {
+    return;
+  }
+
+  let activeIndex = slides.findIndex((slide) => slide.classList.contains("is-active"));
+  const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let intervalId;
+
+  if (activeIndex < 0) {
+    activeIndex = 0;
+  }
+
+  const setActiveSlide = (nextIndex) => {
+    activeIndex = nextIndex % slides.length;
+
+    slides.forEach((slide, index) => {
+      slide.classList.toggle("is-active", index === activeIndex);
+    });
+
+    slider.dataset.choiceTone = slides[activeIndex].dataset.choiceTone || "light";
+  };
+
+  const stopSlider = () => {
+    if (!intervalId) {
+      return;
+    }
+
+    window.clearInterval(intervalId);
+    intervalId = undefined;
+  };
+
+  const startSlider = () => {
+    stopSlider();
+
+    if (slides.length < 2 || reduceMotionQuery.matches) {
+      return;
+    }
+
+    intervalId = window.setInterval(() => {
+      setActiveSlide(activeIndex + 1);
+    }, WHY_CHOICE_SLIDE_DURATION);
+  };
+
+  setActiveSlide(activeIndex);
+  startSlider();
+  reduceMotionQuery.addEventListener("change", startSlider);
+};
+
+const initWhy = () => {
+  const choiceSliders = Array.from(document.querySelectorAll("[data-why-choice-slider]"));
+
+  choiceSliders.forEach(initWhyChoiceSlider);
+};
+
+const initQualityPanel = (panel) => {
+  const sliderElement = panel.querySelector("[data-quality-slider]");
+
+  if (!sliderElement || typeof KeenSlider === "undefined") {
+    return undefined;
+  }
+
+  const slides = Array.from(sliderElement.querySelectorAll(".keen-slider__slide"));
+  const previousButton = panel.querySelector("[data-quality-prev]");
+  const nextButton = panel.querySelector("[data-quality-next]");
+  const hasMultipleSlides = slides.length > 1;
+  const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  if (previousButton) {
+    previousButton.hidden = !hasMultipleSlides;
+  }
+
+  if (nextButton) {
+    nextButton.hidden = !hasMultipleSlides;
+  }
+
+  if (!hasMultipleSlides) {
+    return undefined;
+  }
+
+  const slider = new KeenSlider(sliderElement, {
+    loop: true,
+    defaultAnimation: {
+      duration: reduceMotionQuery.matches ? 0 : QUALITY_SLIDE_ANIMATION_DURATION,
+    },
+    slides: {
+      perView: "auto",
+      spacing: QUALITY_SLIDE_SPACING.desktop,
+      origin: "auto",
+    },
+    breakpoints: {
+      "(max-width: 1240px)": {
+        slides: {
+          perView: "auto",
+          spacing: QUALITY_SLIDE_SPACING.tablet,
+          origin: "auto",
+        },
+      },
+      "(max-width: 768px)": {
+        slides: {
+          perView: "auto",
+          spacing: QUALITY_SLIDE_SPACING.mobile,
+          origin: "auto",
+        },
+      },
+    },
+  });
+
+  previousButton?.addEventListener("click", () => {
+    slider.prev();
+  });
+
+  nextButton?.addEventListener("click", () => {
+    slider.next();
+  });
+
+  reduceMotionQuery.addEventListener("change", () => {
+    slider.update({
+      defaultAnimation: {
+        duration: reduceMotionQuery.matches ? 0 : QUALITY_SLIDE_ANIMATION_DURATION,
+      },
+    });
+  });
+
+  return slider;
+};
+
+const initQuality = () => {
+  const sections = Array.from(document.querySelectorAll("[data-quality]"));
+
+  sections.forEach((section) => {
+    const tabs = Array.from(section.querySelectorAll("[data-quality-tab]"));
+    const panels = Array.from(section.querySelectorAll("[data-quality-panel]"));
+    const sliders = new Map();
+
+    const setActiveTab = (activeName) => {
+      tabs.forEach((tab) => {
+        const isActive = tab.dataset.qualityTab === activeName;
+
+        tab.classList.toggle("is-active", isActive);
+        tab.setAttribute("aria-selected", isActive ? "true" : "false");
+        tab.tabIndex = isActive ? 0 : -1;
+      });
+
+      panels.forEach((panel) => {
+        const isActive = panel.dataset.qualityPanel === activeName;
+
+        panel.classList.toggle("is-active", isActive);
+        panel.hidden = !isActive;
+
+        if (!isActive) {
+          return;
+        }
+
+        if (!sliders.has(activeName)) {
+          sliders.set(activeName, initQualityPanel(panel));
+          return;
+        }
+
+        sliders.get(activeName)?.update();
+      });
+    };
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => {
+        setActiveTab(tab.dataset.qualityTab);
+      });
+
+      tab.addEventListener("keydown", (event) => {
+        if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") {
+          return;
+        }
+
+        event.preventDefault();
+
+        const direction = event.key === "ArrowRight" ? 1 : -1;
+        const nextIndex = (index + direction + tabs.length) % tabs.length;
+        const nextTab = tabs[nextIndex];
+
+        nextTab.focus();
+        setActiveTab(nextTab.dataset.qualityTab);
+      });
+    });
+
+    const activeTab = tabs.find((tab) => tab.classList.contains("is-active")) || tabs[0];
+
+    if (activeTab) {
+      setActiveTab(activeTab.dataset.qualityTab);
+    }
+  });
+};
+
+const initFaq = () => {
+  const sections = Array.from(document.querySelectorAll("[data-faq]"));
+
+  sections.forEach((section) => {
+    const items = Array.from(section.querySelectorAll(".faq__item"));
+
+    const setItemOpen = (targetItem, shouldOpen) => {
+      items.forEach((item) => {
+        const toggle = item.querySelector("[data-faq-toggle]");
+        const answerId = toggle?.getAttribute("aria-controls");
+        const answer = answerId ? document.getElementById(answerId) : null;
+        const isOpen = item === targetItem && shouldOpen;
+
+        item.classList.toggle("is-open", isOpen);
+        toggle?.setAttribute("aria-expanded", isOpen ? "true" : "false");
+
+        if (answer) {
+          answer.hidden = !isOpen;
+        }
+      });
+    };
+
+    items.forEach((item) => {
+      const toggle = item.querySelector("[data-faq-toggle]");
+
+      if (!toggle) {
+        return;
+      }
+
+      toggle.addEventListener("click", () => {
+        setItemOpen(item, toggle.getAttribute("aria-expanded") !== "true");
+      });
+    });
+  });
+};
+
+const initSale = () => {
+  const saleCards = Array.from(document.querySelectorAll("[data-sale-card]"));
+
+  saleCards.forEach(initSaleCard);
+};
+
+const getMapPlacemarkMetrics = (isMobile) =>
+  isMobile ? MAP_PLACEMARK_MOBILE : MAP_PLACEMARK_DESKTOP;
+
+const initMapScrollZoomGuard = (map, mapElement) => {
+  const desktopQuery = window.matchMedia(MAP_DESKTOP_QUERY);
+  let hoverTimerId = 0;
+  let isScrollZoomEnabled = true;
+
+  const disableScrollZoom = () => {
+    window.clearTimeout(hoverTimerId);
+    hoverTimerId = 0;
+    map.behaviors.disable("scrollZoom");
+    isScrollZoomEnabled = false;
+  };
+
+  const scheduleScrollZoom = () => {
+    disableScrollZoom();
+
+    if (!desktopQuery.matches) {
+      return;
+    }
+
+    hoverTimerId = window.setTimeout(() => {
+      map.behaviors.enable("scrollZoom");
+      isScrollZoomEnabled = true;
+      hoverTimerId = 0;
+    }, MAP_SCROLL_ZOOM_DELAY);
+  };
+
+  const syncScrollZoomMode = () => {
+    if (desktopQuery.matches) {
+      disableScrollZoom();
+      return;
+    }
+
+    window.clearTimeout(hoverTimerId);
+    hoverTimerId = 0;
+    map.behaviors.enable("scrollZoom");
+    isScrollZoomEnabled = true;
+  };
+
+  syncScrollZoomMode();
+  mapElement.addEventListener("pointerenter", scheduleScrollZoom);
+  mapElement.addEventListener("pointermove", scheduleScrollZoom);
+  mapElement.addEventListener("pointerleave", disableScrollZoom);
+  mapElement.addEventListener("wheel", () => {
+    if (desktopQuery.matches && !isScrollZoomEnabled) {
+      scheduleScrollZoom();
+    }
+  });
+  desktopQuery.addEventListener("change", syncScrollZoomMode);
+};
+
+const initYandexMap = () => {
+  const mapElement = document.querySelector("[data-yandex-map]");
+
+  if (!mapElement) {
+    return;
+  }
+
+  const createMap = () => {
+    const mobileQuery = window.matchMedia(MAP_MOBILE_QUERY);
+    const placemarkLayout = ymaps.templateLayoutFactory.createClass(
+      '<span class="map__placemark" aria-hidden="true">' +
+        '<span class="map__placemark-body">' +
+        '<img src="img/map/marker-logo.svg" width="42" height="44" alt="">' +
+        "</span>" +
+        "</span>",
+    );
+    const placemark = new ymaps.Placemark(
+      GUDROK_MAP_COORDS,
+      {
+        hintContent: GUDROK_MAP_ADDRESS,
+      },
+      {
+        iconLayout: placemarkLayout,
+      },
+    );
+    const map = new ymaps.Map(
+      mapElement,
+      {
+        center: GUDROK_MAP_COORDS,
+        controls: [],
+        zoom: GUDROK_MAP_ZOOM,
+      },
+      {
+        suppressMapOpenBlock: true,
+        yandexMapDisablePoiInteractivity: true,
+      },
+    );
+
+    const syncPlacemarkMetrics = () => {
+      const metrics = getMapPlacemarkMetrics(mobileQuery.matches);
+
+      placemark.options.set({
+        iconOffset: metrics.offset,
+        iconShape: {
+          type: "Rectangle",
+          coordinates: metrics.shape,
+        },
+      });
+    };
+
+    syncPlacemarkMetrics();
+    map.geoObjects.add(placemark);
+    initMapScrollZoomGuard(map, mapElement);
+    mobileQuery.addEventListener("change", syncPlacemarkMetrics);
+  };
+
+  const waitForApi = (attempt = 0) => {
+    if (typeof ymaps !== "undefined" && typeof ymaps.ready === "function") {
+      ymaps.ready(createMap);
+      return;
+    }
+
+    if (attempt < 60) {
+      window.setTimeout(() => waitForApi(attempt + 1), 100);
+    }
+  };
+
+  waitForApi();
+};
+
 initModals();
 initHeader();
 initHeroSlider();
 initProducts();
+initCustomOrder();
+initWhy();
+initQuality();
+initFaq();
+initSale();
+initYandexMap();

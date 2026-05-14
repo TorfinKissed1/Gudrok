@@ -1,0 +1,6 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Communication">
+<path id="Vector" d="M2.25 6.25C2.25 5.71957 2.46071 5.21086 2.83579 4.83579C3.21086 4.46071 3.71957 4.25 4.25 4.25H19.75C20.2804 4.25 20.7891 4.46071 21.1642 4.83579C21.5393 5.21086 21.75 5.71957 21.75 6.25V17.75C21.75 18.2804 21.5393 18.7891 21.1642 19.1642C20.7891 19.5393 20.2804 19.75 19.75 19.75H4.25C3.71957 19.75 3.21086 19.5393 2.83579 19.1642C2.46071 18.7891 2.25 18.2804 2.25 17.75V6.25Z" stroke="var(--stroke-0, #F5821F)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M2.75 5.75L12 12L21.25 5.75" stroke="var(--stroke-0, #F5821F)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>
