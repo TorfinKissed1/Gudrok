@@ -2189,8 +2189,8 @@ body.is-menu-open {
     max-width: 245px;
 }
 
-.why-card--safe .why-card__text span {
-    display: block;
+.why-card--safe .why-card__text {
+    max-width: 245px;
 }
 
 .why-card--safe .why-card__title {
@@ -2203,6 +2203,10 @@ body.is-menu-open {
     font-weight: var(--font-weight-regular);
     line-height: var(--why-card-title-line-height);
     letter-spacing: var(--letter-spacing-none);
+}
+
+.why-card--tech .why-card__title {
+    font-size: var(--font-size-600);
 }
 
 .why-card__text {
@@ -5117,6 +5121,10 @@ a.map__contact:hover {
         max-width: 269px;
     }
 
+    .why-card--tech .why-card__title {
+        font-size: var(--font-size-400);
+    }
+
     .why-card__image--main {
         width: min(100%, var(--why-tech-image-width));
     }
@@ -5154,6 +5162,10 @@ a.map__contact:hover {
         min-height: 0;
         height: 100%;
         padding: var(--space-200) var(--space-100);
+    }
+
+    .why-card--safe .why-card__text {
+        max-width: 148px;
     }
 
     .why-card--strength {
