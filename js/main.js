@@ -2,6 +2,7 @@ const HERO_SLIDE_DURATION = 3000;
 const HERO_COMPACT_PAGINATION_COUNT = 4;
 const MODAL_TRANSITION_DURATION = 300;
 const PRODUCT_SLIDE_ANIMATION_DURATION = 500;
+const PRODUCT_GALLERY_SEPARATOR = "|";
 const QUALITY_SLIDE_ANIMATION_DURATION = 500;
 const QUALITY_SLIDE_SPACING = {
   desktop: 41,
@@ -693,6 +694,19 @@ const getProductOfferData = (button) => ({
   storage: getRequiredDatasetValue(button, "productStorage"),
 });
 
+const getProductGalleryImages = (button, key) =>
+  getRequiredDatasetValue(button, key)
+    .split(PRODUCT_GALLERY_SEPARATOR)
+    .map((image) => image.trim())
+    .filter(Boolean);
+
+const getProductGalleryData = (button) => ({
+  desktop: getProductGalleryImages(button, "productGallery"),
+  mobile: getProductGalleryImages(button, "productGalleryMobile"),
+});
+
+const getCssUrlValue = (url) => `url("${url.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}")`;
+
 const setActiveProductOption = (optionButtons, activeButton) => {
   optionButtons.forEach((optionButton) => {
     const isActive = optionButton === activeButton;
@@ -750,6 +764,31 @@ const updateProductOffer = (card, button) => {
   offerElements.storage.textContent = offerData.storage;
 };
 
+const updateProductGallery = (card, button) => {
+  const slides = Array.from(card.querySelectorAll("[data-product-slide]"));
+
+  if (!slides.length) {
+    return;
+  }
+
+  const galleryData = getProductGalleryData(button);
+  const hasMatchingGalleryLength =
+    galleryData.desktop.length === slides.length &&
+    galleryData.mobile.length === slides.length;
+
+  if (!hasMatchingGalleryLength) {
+    throw new Error("Product gallery image count must match product slides count.");
+  }
+
+  slides.forEach((slide, index) => {
+    slide.style.setProperty("--product-slide-image", getCssUrlValue(galleryData.desktop[index]));
+    slide.style.setProperty(
+      "--product-slide-image-mobile",
+      getCssUrlValue(galleryData.mobile[index])
+    );
+  });
+};
+
 const initProductOptions = (card) => {
   const optionButtons = Array.from(card.querySelectorAll("[data-product-option]"));
 
@@ -765,6 +804,7 @@ const initProductOptions = (card) => {
 
   setActiveProductOption(optionButtons, activeOption);
   updateProductOffer(card, activeOption);
+  updateProductGallery(card, activeOption);
 
   card.addEventListener("click", (event) => {
     if (!(event.target instanceof Element)) {
@@ -781,6 +821,7 @@ const initProductOptions = (card) => {
 
     setActiveProductOption(currentOptionButtons, button);
     updateProductOffer(card, button);
+    updateProductGallery(card, button);
   });
 };
 
